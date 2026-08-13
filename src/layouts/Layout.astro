@@ -1,0 +1,534 @@
+---
+// src/layouts/Layout.astro
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<title>{title} | Cumbre Serena</title>
+		
+		<link rel="icon" type="image/png" href="/img/favicon.png" />
+		
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		
+		<meta property="og:image" content="https://cumbreserena.netlify.app/img/logo-whatsapp.webp" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		
+		<header class="site-header">
+			<div class="header-container">
+				
+				<div class="mobile-header">
+					<a href="/" class="logo-link">
+						<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="header-logo-img" />
+						<div class="logo-text-group">
+							<span class="brand-title">CUMBRE<strong>SERENA</strong></span>
+							<span class="logo-accent">WORLD PRODUCTIONS</span>
+						</div>
+					</a>
+					<div class="mobile-actions">
+						<button aria-label="Menú" id="btn-menu">
+							<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+						</button>
+					</div>
+				</div>
+
+				<div class="desktop-header">
+					<div class="logo-wrapper">
+						<a href="/" class="logo-link-large">
+							<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="header-logo-img" />
+							<div class="logo-text-group">
+								<span class="brand-title">CUMBRE<strong>SERENA</strong></span>
+								<span class="logo-accent">WORLD PRODUCTIONS</span>
+							</div>
+						</a>
+					</div>
+					
+					<div class="nav-wrapper">
+						<nav class="main-nav">
+							<ul>
+								<li><a href="/">INICIO</a></li>
+								<li><a href="/about">QUIÉNES SOMOS</a></li>
+								<li><a href="/#proyectos">PROYECTOS</a></li>
+								<li><a href="/editorial">EDITORIAL</a></li>
+								<li><a href="/contact">CONTACTO</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+		</header>
+
+		<div class="mobile-nav-overlay" id="mobile-menu">
+			<nav class="mobile-nav-drawer">
+				<div class="drawer-header">
+					<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="drawer-logo" />
+					<button id="btn-close-menu" aria-label="Cerrar Menú">
+						<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+					</button>
+				</div>
+				<ul class="drawer-links">
+					<li><a href="/">INICIO</a></li>
+					<li><a href="/about">QUIÉNES SOMOS</a></li>
+					<li><a href="/#proyectos">PROYECTOS</a></li>
+					<li><a href="/editorial">EDITORIAL</a></li>
+					<li><a href="/contact">CONTACTO</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<div class="footer-content">
+				
+				<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="footer-logo-img">
+				<div class="footer-logo-text">CUMBRE SERENA WORLD PRODUCTIONS</div>
+				
+				<div class="footer-social">
+					<a href="https://www.instagram.com/produccionescumbreserena/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+					</a>
+					<a href="https://www.tiktok.com/@produccionescumbreserena?lang=es" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+					</a>
+					<a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+					</a>
+					<a href="https://www.linkedin.com/in/producciones-cumbre-serena-56523a3b6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+					</a>
+				</div>
+				
+				<div class="footer-legal">
+					<a href="/privacidad">Política de Privacidad</a>
+					<span class="separator">·</span>
+					<a href="/aviso-legal">Aviso Legal</a>
+				</div>
+
+			</div>
+			
+			<div class="footer-bottom">
+				<p>© 2026 Cumbre Serena World Productions. Todos los derechos reservados.</p>
+			</div>
+		</footer>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const btnMenu = document.getElementById('btn-menu');
+				const btnClose = document.getElementById('btn-close-menu');
+				const mobileMenu = document.getElementById('mobile-menu');
+				const menuLinks = document.querySelectorAll('.drawer-links a');
+
+				if(btnMenu && mobileMenu) {
+					btnMenu.addEventListener('click', () => {
+						mobileMenu.classList.add('is-open');
+						document.body.style.overflow = 'hidden'; 
+					});
+				}
+
+				if(btnClose && mobileMenu) {
+					btnClose.addEventListener('click', () => {
+						mobileMenu.classList.remove('is-open');
+						document.body.style.overflow = '';
+					});
+				}
+
+				if(mobileMenu) {
+					mobileMenu.addEventListener('click', (e) => {
+						if (e.target === mobileMenu) {
+							mobileMenu.classList.remove('is-open');
+							document.body.style.overflow = '';
+						}
+					});
+				}
+
+				// Cierra el menú al hacer clic en secciones ancla como #proyectos
+				menuLinks.forEach(link => {
+					link.addEventListener('click', () => {
+						if (mobileMenu) {
+							mobileMenu.classList.remove('is-open');
+							document.body.style.overflow = '';
+						}
+					});
+				});
+			});
+		</script>
+
+	</body>
+</html>
+
+<style is:global lang="scss">
+	/* ==========================================
+	   1. VARIABLES DE DISEÑO (SASS + NATIVAS)
+	   ========================================== */
+	$color-bg:        #0a0a0a;
+	$color-text:      #F5F5F5;
+	$color-accent:    #00A896;
+	$font-body:       'Playfair Display', 'Montserrat', 'Cinzel', serif;
+	$font-title:      'Barlow', 'Poppins', 'Inter', sans-serif;
+	$max-width-site:  1200px;
+
+	:root {
+		--test-bg-page: #e3ecec;
+		--site-bg: #{$color-bg};
+		--site-text: #{$color-text};
+		--site-accent: #{$color-accent};
+		--font-body: #{$font-body};
+		--font-title: #{$font-title};
+	}
+
+	/* ==========================================
+	   2. RESETS GLOBALES Y TIPOGRAFÍA BASE
+	   ========================================== */
+	*, *::before, *::after { 
+		box-sizing: border-box;
+		margin: 0; 
+		padding: 0; 
+	}
+	
+	html { 
+		scroll-behavior: auto !important; 
+	}
+	
+	body { 
+		font-family: var(--font-body);
+		color: #333;
+		background-color: var(--test-bg-page); 
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	h1, h2, h3, h4, .logo-link, .logo-link-large, nav a, button {
+		font-family: var(--font-title);
+	}
+	
+	a { text-decoration: none; color: inherit; }
+	ul { list-style: none; }
+	button { background: none; border: none; cursor: pointer; color: inherit; }
+
+	/* ==========================================
+	   3. HEADER GENERAL & STICKY
+	   ========================================== */
+	.site-header {
+		background-color: var(--test-bg-page); 
+		border-bottom: 1px solid rgba(0,0,0,0.05);
+		position: sticky;
+		top: 0;
+		z-index: 999;
+	}
+	
+	.header-container { 
+		width: 100%;
+		max-width: $max-width-site;
+		margin: 0 auto; 
+		padding: 0 1rem;
+	}
+
+	/* ==========================================
+	   4. MARCA Y LOGO (COMÚN MOBILE/DESKTOP)
+	   ========================================== */
+	.logo-link, .logo-link-large {
+		display: flex;
+		align-items: center;
+	}
+	
+	.header-logo-img {
+		height: auto;
+		opacity: 0.95;
+	}
+
+	.logo-text-group {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		line-height: 1;
+	}
+
+	.brand-title {
+		font-family: var(--font-title);
+		color: #333;
+		display: flex;       
+		align-items: baseline; 
+		
+		strong { 
+			color: #111; 
+			font-weight: 700;
+			margin-left: 0.2rem; 
+		}
+	}
+
+	.logo-accent {
+		display: block;
+		font-family: sans-serif;
+		font-style: normal !important; 
+		font-weight: 700;
+		color: var(--site-accent);
+		text-align: left;
+	}
+
+	/* ==========================================
+	   5. HEADER VERSIÓN MÓVIL (MOBILE FIRST)
+	   ========================================== */
+	.mobile-header {
+		display: flex; 
+		justify-content: space-between; 
+		align-items: center;
+		height: 60px;
+		
+		.logo-link { gap: 0.6rem; }
+		.header-logo-img { width: 32px; }
+		.brand-title { font-size: 1.1rem; }
+		.logo-accent { 
+			font-size: 0.55rem; 
+			letter-spacing: 2px;
+			margin-top: 3px; 
+		}
+	}
+
+	.mobile-actions { 
+		display: flex; 
+		gap: 1rem; 
+		color: var(--site-accent); 
+	}
+
+	.desktop-header { display: none; } 
+
+	/* ==========================================
+	   6. HEADER VERSIÓN DESKTOP (PC)
+	   ========================================== */
+	@media (min-width: 1024px) {
+		.mobile-header { display: none; }
+		
+		.desktop-header { 
+			display: flex; 
+			flex-direction: column; 
+			align-items: center; 
+			padding: 2.5rem 0 1.5rem; 
+		}
+		
+		.logo-wrapper { margin-bottom: 2rem; }
+		.logo-link-large { gap: 0.8rem; }
+		
+		.desktop-header {
+			.header-logo-img { width: 45px; }
+			.brand-title { font-size: 2.2rem; letter-spacing: 1px; }
+			.logo-accent { font-size: 0.7rem; letter-spacing: 4px; margin-top: 6px; }
+		}
+
+		/* MENÚ DE NAVEGACIÓN PC */
+		.nav-wrapper { 
+			display: flex; 
+			width: 100%; 
+			justify-content: center; 
+			align-items: center; 
+		}
+		
+		.main-nav ul { 
+			display: flex;
+			align-items: center; 
+			gap: 0.5rem; 
+		}
+		
+		.main-nav li {
+			position: relative; 
+			padding: 0 1.5rem;
+			
+			&:not(:last-child)::after {
+				content: ''; 
+				position: absolute; 
+				right: 0; 
+				top: 50%;
+				transform: translateY(-50%);
+				height: 12px; 
+				width: 1px; 
+				background-color: rgba(0,0,0,0.15); 
+			}
+		}
+		
+		.main-nav a {
+			font-size: 0.9rem; 
+			font-weight: 700; 
+			color: #666;
+			transition: color 0.2s;
+			text-transform: uppercase; 
+			letter-spacing: 1px;
+			
+			&:hover, &.active { color: var(--site-accent); }
+		}
+	}
+
+	/* ==========================================
+	   7. FOOTER PRINCIPAL
+	   ========================================== */
+	.site-footer {
+		background-color: var(--site-bg);
+		padding: 4rem 1.5rem 2rem 1.5rem;
+		text-align: center;
+	}
+	
+	.footer-content {
+		display: flex; 
+		flex-direction: column; 
+		align-items: center; 
+		width: 100%;
+		max-width: $max-width-site; 
+		margin: 0 auto;
+	}
+	
+	.footer-logo-img { 
+		width: 40px; 
+		margin-bottom: 1rem;
+		opacity: 0.9; 
+	}
+	
+	.footer-logo-text {
+		font-family: var(--font-title); 
+		font-size: 1.2rem; 
+		letter-spacing: 4px;
+		color: rgba(255, 255, 255, 0.8); 
+		margin-bottom: 2rem; 
+		text-transform: uppercase;
+	}
+	
+	.footer-social {
+		display: flex; 
+		justify-content: center; 
+		gap: 2rem; 
+		margin-bottom: 2rem;
+		
+		a {
+			color: var(--site-accent); 
+			transition: color 0.3s ease, transform 0.2s ease;
+			&:hover { 
+				color: #ffffff; 
+				transform: translateY(-3px); 
+			}
+		}
+	}
+	
+	.footer-legal {
+		margin-bottom: 3rem;
+		
+		a, .separator {
+			color: rgba(255, 255, 255, 0.4); 
+			text-decoration: none; 
+			font-size: 0.8rem;
+			font-family: var(--font-title); 
+			margin: 0 0.5rem; 
+			transition: color 0.2s;
+		}
+		
+		a:hover { color: var(--site-accent); }
+	}
+	
+	.footer-bottom {
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+		padding-top: 2rem; 
+		width: 100%;
+		max-width: $max-width-site; 
+		margin: 0 auto;
+		
+		p {
+			color: rgba(255, 255, 255, 0.3); 
+			font-size: 0.75rem; 
+			font-family: var(--font-title);
+			margin: 0;
+		}
+	}
+
+	/* ==========================================
+	   8. ESTILOS DEL MENÚ DESPLIEGUE MÓVIL (NUEVO)
+	   ========================================== */
+	.mobile-nav-overlay {
+		position: fixed;
+		top: 0; left: 0; width: 100%; height: 100%;
+		background-color: rgba(0, 0, 0, 0.75);
+		backdrop-filter: blur(4px);
+		z-index: 9999;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+
+		&.is-open {
+			opacity: 1;
+			visibility: visible;
+			
+			.mobile-nav-drawer {
+				transform: translateX(0);
+			}
+		}
+	}
+
+	.mobile-nav-drawer {
+		position: absolute;
+		top: 0; right: 0;
+		width: 80%; max-width: 320px;
+		height: 100%;
+		background-color: var(--site-bg);
+		transform: translateX(100%);
+		transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+		display: flex;
+		flex-direction: column;
+		padding: 2rem 1.5rem;
+		box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+	}
+
+	.drawer-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 3rem;
+		border-bottom: 1px solid rgba(255,255,255,0.1);
+		padding-bottom: 1rem;
+
+		.drawer-logo { width: 32px; }
+		
+		button {
+			color: var(--site-text);
+			transition: color 0.3s;
+			&:hover { color: var(--site-accent); }
+		}
+	}
+
+	.drawer-links {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		a {
+			font-family: var(--font-title);
+			font-size: 1.1rem;
+			font-weight: 700;
+			color: var(--site-text);
+			letter-spacing: 2px;
+			transition: color 0.3s, padding-left 0.3s;
+			display: block;
+			
+			&:hover {
+				color: var(--site-accent);
+				padding-left: 8px;
+			}
+		}
+	}
+</style>

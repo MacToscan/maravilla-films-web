@@ -1,0 +1,400 @@
+---
+// src/pages/el-ramo.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Raices ancestrales" description="Documental Raices ancestrales - Canbuyon | Cumbre Serena World Productions">
+	
+	<section class="movie-hero">
+		<div class="hero-bg" style="background-image: url('/img/cartel_raices.webp');"></div>
+		<div class="hero-gradient"></div>
+		
+		<div class="hero-content">
+			<h1 class="movie-title"></h1>
+			
+			<button id="btn-open-trailer" class="btn-trailer">
+				<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+				VER TRÁILER
+			</button>
+		</div>
+	</section>
+
+	<section class="movie-details-split">
+		
+		<div class="panel-left">
+			<div class="panel-left-inner">
+				<div class="poster-col">
+					<img src="/img/raices_ancestrales_portada.webp" alt="Cartel oficial de Raices ancestrales" class="movie-poster" />
+				</div>
+				
+				<div class="synopsis-col">
+					<h2>SINOPSIS</h2>
+					<div class="synopsis-text">
+						<p>En el corazón del inclemente desierto de Sonora, donde el sol dicta el ritmo de la vida y el polvo guarda la memoria de los siglos, resiste una de las culturas más fascinantes y enigmáticas de México: el pueblo Yaqui.</p>
+						<p>Raíces Ancestrales: Los Yaquis es un viaje inmersivo hacia el núcleo de una comunidad que ha luchado incansablemente por preservar su identidad frente al paso del tiempo. A través del ritmo hipnótico de sus danzas tradicionales, la sabiduría de sus rituales y la conexión inquebrantable con su tierra, este documental nos invita a descubrir la fuerza de un legado que se niega a desaparecer. Una exploración profunda sobre la fe, la resistencia y el orgullo de un pueblo que sigue bailando al son de sus propias raíces.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-right">
+			<div class="panel-right-inner">
+				<h2>INFORMACIÓN</h2>
+				
+				<div class="info-grid">
+					<div class="info-row">
+						<span class="info-label">DIRECCIÓN:</span>
+						<span class="info-value">Eduardo Álvarez</span>
+					</div>
+					<div class="info-row">
+						<span class="info-label">REPARTO:</span>
+						<span class="info-value">Yakis</span>
+					</div>
+					<div class="info-row">
+						<span class="info-label">PRODUCCIÓN:</span>
+						<span class="info-value">Canbuyon | Cumbre Serena</span>
+					</div>
+					<div class="info-row">
+						<span class="info-label">GUION:</span>
+						<span class="info-value">Eduardo Álvarez</span>
+					</div>
+					<div class="info-row">
+						<span class="info-label">MÚSICA:</span>
+						<span class="info-value">Rafael Fernández</span>
+					</div>
+					<div class="info-row">
+						<span class="info-label">GÉNERO:</span>
+						<span class="info-value">Documental</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<div id="trailer-modal" class="trailer-modal">
+		<div class="modal-content">
+			<button id="btn-close-trailer" class="btn-close-modal" aria-label="Cerrar tráiler">
+				<svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+			</button>
+			<video id="trailer-video" class="modal-video" controls>
+				<source src="/video/raices_ancestrales.mp4" type="video/mp4" />
+				Tu navegador no soporta el formato de vídeo.
+			</video>
+		</div>
+	</div>
+
+</Layout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const btnOpen = document.getElementById('btn-open-trailer');
+		const btnClose = document.getElementById('btn-close-trailer');
+		const modal = document.getElementById('trailer-modal');
+		const video = document.getElementById('trailer-video') as HTMLVideoElement;
+
+		if(btnOpen && btnClose && modal && video) {
+			// Abrir modal y reproducir
+			btnOpen.addEventListener('click', () => {
+				modal.classList.add('is-open');
+				video.play();
+			});
+
+			// Cerrar modal y pausar vídeo
+			const closeModal = () => {
+				modal.classList.remove('is-open');
+				video.pause();
+				video.currentTime = 0; // Lo reinicia al principio
+			};
+
+			btnClose.addEventListener('click', closeModal);
+
+			// Cerrar si hace clic fuera del vídeo (en lo negro)
+			modal.addEventListener('click', (e) => {
+				if (e.target === modal) closeModal();
+			});
+		}
+	});
+</script>
+
+<style lang="scss">
+	/* ==========================================
+	   ESTILOS HERO 16:9
+	   ========================================== */
+	.movie-hero {
+		position: relative;
+		width: 100%;
+		
+		/* En móvil, le damos un aspecto rectangular (tipo vídeo) para no recortar tanto la foto */
+		height: 40vw; 
+		min-height: 160px; 
+		
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		overflow: hidden;
+
+		@media (min-width: 768px) {
+			height: 60vh;
+			min-height: 400px;
+		}
+
+		@media (min-width: 1024px) {
+			height: 75vh; 
+		}
+	}
+
+	.hero-bg {
+		position: absolute;
+		top: 0; left: 0; width: 100%; height: 100%;
+		background-size: contain;
+		/* IMPORTANTE: Centrar la foto exactamente para que no corte los lados asimétricamente */
+		background-position: center center; 
+		z-index: 1;
+		@media (min-width: 1024px) {
+			background-size: cover; 
+		}
+	}
+	.hero-gradient {
+		position: absolute;
+		top: 0; left: 0; width: 100%; height: 100%;
+		/* Sombra negra abajo para que el texto y botón destaquen */
+		background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+		z-index: 2;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 3;
+		width: 100%;
+		padding: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		
+		@media (min-width: 1024px) {
+			padding: 4rem;
+		}
+	}
+
+	.movie-title {
+		font-family: var(--font-title);
+		color: #ffffff;
+		font-size: 3rem;
+		letter-spacing: 15px;
+		text-transform: uppercase;
+		margin: 0;
+		text-align: center;
+		font-weight: 300;
+		text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+
+		@media (min-width: 768px) {
+			font-size: 5rem;
+			letter-spacing: 25px;
+		}
+	}
+
+	.btn-trailer {
+		position: absolute;
+		bottom: 2rem;
+		right: 2rem;
+		background-color: var(--site-accent); /* Cogerá tu color rojo de Canbuyon o verde de Cumbre Serena */
+		color: #ffffff;
+		font-family: var(--font-title);
+		font-weight: 700;
+		letter-spacing: 1px;
+		border: none;
+		padding: 0.8rem 1.5rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+		transition: transform 0.2s, filter 0.3s;
+
+		&:hover {
+			filter: brightness(1.1);
+			transform: scale(1.05);
+		}
+
+		@media (min-width: 1024px) {
+			bottom: 4rem;
+			right: 4rem;
+		}
+	}
+
+	/* ==========================================
+	   ESTILOS PANELES DIVIDIDOS
+	   ========================================== */
+	.movie-details-split {
+		display: flex;
+		flex-direction: column; /* En móvil se pone uno debajo del otro */
+		width: 100%;
+
+		@media (min-width: 1024px) {
+			flex-direction: row; /* En PC se ponen lado a lado */
+		}
+	}
+
+	h2 {
+		font-family: var(--font-title);
+		color: #ffffff;
+		font-size: 1.5rem;
+		letter-spacing: 2px;
+		margin-top: 0;
+		margin-bottom: 2rem;
+	}
+
+	/* --- PANEL IZQUIERDO --- */
+	.panel-left {
+		background-color: #6a6a6a; /* Gris medio calcado al de la referencia */
+		color: #ffffff;
+		padding: 3rem 1.5rem;
+		display: flex;
+		justify-content: center;
+
+		@media (min-width: 1024px) {
+			width: 65%; /* Ocupa más espacio como en el diseño original */
+			padding: 5rem 3rem;
+			justify-content: flex-end; /* Empuja el contenido hacia la derecha para que quede centrado en el hueco */
+		}
+	}
+
+	.panel-left-inner {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		width: 100%;
+		max-width: 900px;
+
+		@media (min-width: 768px) {
+			flex-direction: row; /* Cartel a la izq, texto a la der */
+			gap: 3rem;
+		}
+	}
+
+	.poster-col {
+		flex-shrink: 0;
+	}
+
+	.movie-poster {
+		width: 100%;
+		max-width: 250px;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+		border-radius: 2px;
+	}
+
+	.synopsis-text p {
+		font-family: var(--font-title); /* A contracorriente usa palo seco para la sinopsis */
+		font-size: 1rem;
+		line-height: 1.7;
+		margin-bottom: 1.2rem;
+		color: rgba(255, 255, 255, 0.95);
+	}
+
+	/* --- PANEL DERECHO --- */
+	.panel-right {
+		background-color: #2b2b2b; /* Gris oscuro / Negro */
+		color: #ffffff;
+		padding: 3rem 1.5rem;
+		display: flex;
+		justify-content: center;
+
+		@media (min-width: 1024px) {
+			width: 35%; /* Ocupa el resto del espacio */
+			padding: 5rem 3rem;
+			justify-content: flex-start; /* Empuja hacia la izquierda */
+		}
+	}
+
+	.panel-right-inner {
+		width: 100%;
+		max-width: 400px;
+	}
+
+	.info-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.info-row {
+		display: grid;
+		grid-template-columns: 120px 1fr; /* 120px para la etiqueta, el resto para el texto */
+		gap: 1rem;
+		align-items: start;
+	}
+
+	.info-label {
+		font-family: var(--font-title);
+		font-weight: 700;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.info-value {
+		font-family: var(--font-title);
+		font-size: 0.95rem;
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 1.5;
+	}
+
+	/* ==========================================
+	   ESTILOS DEL MODAL DEL TRÁILER
+	   ========================================== */
+	.trailer-modal {
+		position: fixed;
+		top: 0; left: 0; width: 100%; height: 100%;
+		background-color: rgba(0, 0, 0, 0.95);
+		z-index: 9999;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+		backdrop-filter: blur(10px);
+
+		&.is-open {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.modal-content {
+		position: relative;
+		width: 90%;
+		max-width: 1000px;
+		aspect-ratio: 16 / 9;
+		background-color: #000;
+		box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+	}
+
+	.modal-video {
+		width: 100%;
+		height: 100%;
+		outline: none;
+	}
+
+	.btn-close-modal {
+		position: absolute;
+		top: -40px;
+		right: 0;
+		background: none;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		opacity: 0.7;
+		transition: opacity 0.2s, transform 0.2s;
+
+		&:hover {
+			opacity: 1;
+			transform: scale(1.1);
+			color: var(--site-accent);
+		}
+		
+		@media (min-width: 768px) {
+			top: -45px;
+			right: -45px; /* En PC la X se pone fuera del vídeo */
+		}
+	}
+</style>

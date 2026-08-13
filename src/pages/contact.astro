@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contacto" description="Contacta con Cumbre Serena World Productions para proyectos, distribución o información general.">
+	
+	<main class="contact-page">
+		
+		<section class="contact-hero">
+			<div class="hero-container">
+				<span class="section-badge">CONTACTO</span>
+				<h1 class="hero-title">HABLEMOS</h1>
+				<p class="hero-subtitle">Contacta con la productora para proyectos, distribución o consultas generales.</p>
+			</div>
+		</section>
+
+		<section class="form-section">
+			<div class="form-container">
+				
+				<div class="direct-contact-info">
+					<a href="mailto:cumbreserenawp@cumbreserena.com" class="contact-link">
+						<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+						cumbreserenawp@cumbreserena.com
+					</a>
+					<a href="tel:+34622360554" class="contact-link">
+						<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+						+34 622 360 554
+					</a>
+				</div>
+
+				<form class="minimal-form" name="contacto-home" method="POST" data-netlify="true" netlify-honeypot="website_url">
+					<input type="hidden" name="form-name" value="contacto-home" />
+					
+					<div class="honeypot-field" aria-hidden="true" style="display: none;">
+						<label for="website_url">Si eres humano, deja este campo vacío</label>
+						<input type="text" name="website_url" id="website_url" tabindex="-1" autocomplete="off">
+					</div>
+					
+					<div class="input-row">
+						<div class="input-group">
+							<input type="text" name="nombre" id="nombre" required placeholder="Tu nombre">
+						</div>
+						<div class="input-group">
+							<input type="email" name="email" id="email" required placeholder="Tu correo electrónico">
+						</div>
+					</div>
+					
+					<div class="input-group">
+						<textarea name="mensaje" id="mensaje" rows="4" required placeholder="Tu mensaje..."></textarea>
+					</div>
+
+					<button class="btn-solid" type="submit">ENVIAR MENSAJE</button>
+				</form>
+
+			</div>
+		</section>
+
+	</main>
+
+</Layout>
+
+<style lang="scss">
+	/* ==========================================
+	   HERO (OSCURO)
+	   ========================================== */
+	.contact-hero {
+		background-color: var(--site-bg);
+		padding: 6rem 1.5rem 5rem;
+		text-align: center;
+	}
+
+	.hero-container {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.section-badge {
+		font-family: var(--font-title);
+		color: var(--site-accent);
+		letter-spacing: 4px;
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		display: block;
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-title {
+		font-family: var(--font-title); 
+		font-size: 2.5rem;
+		color: #ffffff;
+		line-height: 1.2;
+		margin-bottom: 1rem;
+		letter-spacing: 2px;
+		
+		@media (min-width: 768px) { font-size: 3rem; }
+	}
+
+	.hero-subtitle {
+		font-family: var(--font-title);
+		font-size: 1.1rem;
+		color: rgba(255, 255, 255, 0.7);
+	}
+
+	/* ==========================================
+	   SECCIÓN FORMULARIO E INFO (BLANCO)
+	   ========================================== */
+	.form-section {
+		background-color: var(--test-bg-page);
+		padding: 4rem 1.5rem 8rem;
+	}
+
+	.form-container {
+		max-width: 800px; /* Más estrecho para que el formulario se vea elegante */
+		margin: 0 auto;
+	}
+
+	/* INFORMACIÓN DIRECTA DE CONTACTO */
+	.direct-contact-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+		margin-bottom: 4rem;
+		padding-bottom: 3rem;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			justify-content: center;
+			gap: 4rem;
+		}
+	}
+
+	.contact-link {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+		font-family: var(--font-title);
+		font-size: 1rem;
+		font-weight: 600;
+		color: #333;
+		transition: color 0.3s;
+
+		&:hover {
+			color: var(--site-accent);
+		}
+
+		svg {
+			color: var(--site-accent);
+		}
+	}
+
+	/* ==========================================
+	   FORMULARIO MINIMALISTA
+	   ========================================== */
+	.minimal-form {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.input-row {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			gap: 2rem;
+			
+			.input-group { flex: 1; }
+		}
+	}
+
+	.input-group {
+		width: 100%;
+		
+		input, textarea {
+			width: 100%;
+			background: transparent;
+			border: none;
+			border-bottom: 1px solid #ccc;
+			padding: 0.8rem 0;
+			font-family: var(--font-body); /* Tipografía editorial para escribir */
+			font-size: 1rem;
+			color: #333;
+			transition: border-color 0.3s;
+			resize: vertical;
+
+			&:focus {
+				outline: none;
+				border-bottom: 2px solid var(--site-accent);
+			}
+
+			&::placeholder {
+				color: #999;
+				font-family: var(--font-title); /* Placeholder recto, input con serifas */
+				font-weight: 300;
+			}
+		}
+	}
+
+	.btn-solid {
+		align-self: center; /* Centra el botón */
+		background-color: var(--site-accent);
+		color: #ffffff;
+		border: none;
+		padding: 1rem 3rem;
+		font-family: var(--font-title);
+		font-weight: 700;
+		font-size: 0.9rem;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: background-color 0.3s, transform 0.2s;
+		border-radius: 2px;
+		margin-top: 1rem;
+
+		&:hover {
+			background-color: #111; /* Cambia a negro elegante al pasar el ratón */
+			transform: translateY(-2px);
+		}
+	}
+</style>

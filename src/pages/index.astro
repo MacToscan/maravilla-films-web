@@ -1,0 +1,398 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+
+// 1. AQUÍ AÑADES TUS VÍDEOS Y PORTADAS DEL SLIDER (HERO)
+const heroSlides = [
+	{
+		id: 1,
+		titulo: "EL RAMO",
+		estado: "PRÓXIMAMENTE",
+		logo: "/img/elramo.webp",
+		video: "/video/el_ramo.mp4",
+		poster: "/img/cartel_el_ramo.webp", /* <-- AQUÍ ESTÁ TU NUEVA PORTADA */
+		enlace: "/el-ramo"
+	},
+	{
+		id: 2,
+		titulo: "RAICES ANCESTRALES",
+		estado: "EN PRODUCCIÓN",
+		logo: "/img/raicesancestralesimg.webp", /* <-- Cambia por el logo de tu segundo proyeto */
+		video: "/video/raices_ancestrales.mp4",
+		poster: "/img/cartel_raices.webp", /* <-- Pon la portada del segundo tráiler */
+		enlace: "/raices-ancestrales" /* <-- Cambia por el enlace a tu segundo proyecto */
+	},
+	{
+		id: 3,
+		titulo: "ESTO NO ES HOLLYWOOD",
+		estado: "EN PRODUCCIÓN",
+		logo: "/img/hollywood_logo.webp", /* <-- Cambia por el logo de tu tercer proyeto */
+		video: "/video/hollywood.mp4",
+		poster: "/img/cartel_hollywood.webp", /* <-- Pon la portada del tercer tráiler */
+		enlace: "/esto-no-es-hollywood" /* <-- Cambia por el enlace a tu tercer proyecto */
+	},
+];
+
+// 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
+// 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
+const proyectos = [
+	{ titulo: "EL RAMO", estado: "Próximamente", imagen: "/img/el_ramo.webp", enlace: "/el-ramo" }, 
+	{ titulo: "RAÍCES ANCESTRALES", estado: "Pre-producción", imagen: "/img/raices_ancestrales_portada.webp", enlace: "/raices-ancestrales" },
+	{ titulo: "ESTO NO ES HOLLYWOOD", estado: "Pre-producción", imagen: "/img/hollywood_portada.webp", enlace: "#" },
+	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/carneycal_portada.webp", enlace: "#" },
+];
+
+// 3. EN LOS MEDIOS / PRENSA
+const prensa = [
+	{
+		medio: "Diari de Terrassa",
+		titular: "Nace en Terrassa Cumbre Serena",
+		imagen: "/img/diari-terrassa.webp",
+		enlace: "https://www.diarideterrassa.com/cultura-i-espectacles/neix-a-terrassa-cumbre-serena-una-productora-de-cinema.html"
+	},
+	{
+		medio: "Món Terrassa",
+		titular: "El Ramo, en el Cinema Catalunya",
+		imagen: "/img/monterrassa.webp",
+		enlace: "https://monterrassa.cat/cultura/el-ramo-carta-presentacio-nova-productora-egarenca-cumbre-serena-517293/"
+	},
+];
+---
+
+<Layout title="Inicio" description="Cumbre Serena World Productions - Cine y Editorial">
+	
+	<section class="hero-slider" id="hero-slider">
+		
+		{heroSlides.map((slide, index) => (
+			<div class={`hero-slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+				
+				<video class="hero-bg-video" loop muted playsinline poster={slide.poster}>
+					<source src={slide.video} type="video/mp4" />
+				</video>
+				<div class="video-overlay"></div>
+
+				<div class="slide-content">
+					<div class="hero-content-bottom">
+						<div class="info-group">
+							<img src={slide.logo} alt={`Logo de ${slide.titulo}`} class="movie-logo" />
+							<p class="release-status">{slide.estado}</p>
+						</div>
+						
+						<div class="action-group">
+							<a href={slide.enlace} class="btn btn-teal">VER MÁS</a>
+							
+							<button class="btn btn-teal btn-play-trailer">
+								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+								VER TRÁILER
+							</button>
+
+							<div class="video-controls hidden">
+								<button class="ctrl-icon btn-pause" aria-label="Pausar">
+									<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+								</button>
+								<button class="ctrl-icon btn-mute" aria-label="Silenciar">
+									<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		))}
+
+		<button class="arrow prev" aria-label="Anterior">
+			<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
+		</button>
+		<button class="arrow next" aria-label="Siguiente">
+			<svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+		</button>
+
+		<div class="dots">
+			{heroSlides.map((_, index) => (
+				<span class={`dot ${index === 0 ? 'active' : ''}`} data-index={index}></span>
+			))}
+		</div>
+
+	</section>
+
+	<section class="projects-section" id="proyectos">
+		<div class="projects-container">
+			<div class="section-header">
+				<h2 class="section-title">PROYECTOS</h2>
+				<div class="carousel-controls">
+					<button class="ctrl-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+					<button class="ctrl-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+				</div>
+			</div>
+			<div class="projects-grid">
+				{proyectos.map((proyecto) => (
+					<article class="project-card">
+						<a href={proyecto.enlace}>
+							<img src={proyecto.imagen} alt={`Póster de ${proyecto.titulo}`} class="poster-img" />
+						</a>
+						<div class="project-info">
+							<h3 class="project-title">{proyecto.titulo}</h3>
+							<p class="project-status">{proyecto.estado}</p>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+	<section class="press-section" id="prensa">
+		<div class="press-container">
+			
+			<div class="section-header">
+				<h2 class="section-title">EN LOS MEDIOS</h2>
+			</div>
+
+			<div class="press-grid">
+				{prensa.map((noticia) => (
+					<a href={noticia.enlace} target="_blank" rel="noopener noreferrer" class="press-card-visual">
+						<div class="img-wrapper">
+							<img src={noticia.imagen} alt={`Noticia en ${noticia.medio}`} class="press-thumb" />
+							<div class="press-gradient"></div>
+						</div>
+						<div class="press-content">
+							<span class="press-source">{noticia.medio}</span>
+							<h3 class="press-headline">{noticia.titular}</h3>
+						</div>
+					</a>
+				))}
+			</div>
+
+		</div>
+	</section>
+</Layout>
+
+<script src="../scripts/slider.js"></script>
+
+<style lang="scss">
+	/* ==========================================
+	   ESTILOS DEL HERO (SE MANTIENE IGUAL, object-fit: cover asegura que el poster cubra bien)
+	   ========================================== */
+	.hero-slider {
+		position: relative; width: 100%; background-color: var(--site-bg); overflow: hidden;
+		height: calc(100dvh - 60px); 
+		@media (min-width: 1024px) { height: calc(100vh - 165px); }
+	}
+
+	.hero-slide {
+		position: absolute; inset: 0; opacity: 0; visibility: hidden;
+		transition: opacity 0.8s ease-in-out, visibility 0.8s; z-index: 1;
+		&.active { opacity: 1; visibility: visible; z-index: 2; }
+	}
+
+	.hero-bg-video {
+		position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; margin-top: 4rem;
+		object-fit: contain; 
+		object-position: top; /* <--- ESTO PEGA EL VÍDEO AL HEADER QUITANDO EL HUECO */
+		
+		/* En ordenador lo mantenemos centrado porque la pantalla es ancha */
+		@media (min-width: 1024px) { 
+			object-fit: cover; /* o contain, lo que prefieras para PC */
+			object-position: center; 
+			margin-top: 0;
+		}
+	}
+
+	.video-overlay {
+		position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 40%, transparent 100%); z-index: 2;
+	}
+
+	.slide-content {
+		position: absolute; inset: 0; z-index: 5; display: flex; align-items: flex-end; justify-content: center;
+		padding-bottom: 4.5rem; @media (min-width: 768px) { padding-bottom: 5.5rem; }
+	}
+
+	.hero-content-bottom {
+		width: 100%; max-width: 1400px; padding: 0 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+		@media (min-width: 768px) { flex-direction: row; justify-content: space-between; align-items: flex-end; padding: 0 3rem; }
+	}
+
+	.info-group { display: flex; 
+		flex-direction: column; 
+		align-items: center; 
+		@media (min-width: 768px) 
+		{ align-items: flex-start; } 
+	}
+
+	.movie-logo { 
+		width: 100%; 
+		max-width: 280px; 
+		filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7)); 
+		margin-bottom: 2.5rem; 
+		@media (min-width: 768px) 
+		{ max-width: 380px; } 
+		@media (min-width: 1200px) { max-width: 450px; } }
+	.release-status { font-family: var(--font-title); color: #ffffff; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin: 0; padding-left: 0; @media (min-width: 768px) { font-size: 1rem; padding-left: 1.5rem; } }
+
+	.action-group { display: flex; gap: 0.8rem; justify-content: center; align-items: center; }
+	
+	.btn {
+		display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 3px; border: none; font-family: var(--font-title); font-weight: 700; letter-spacing: 1px; cursor: pointer; white-space: nowrap; transition: background-color 0.3s, transform 0.2s;
+		padding: 0.6rem 1.2rem !important; font-size: 0.75rem !important; background-color: var(--site-accent); color: #ffffff;
+		&:hover { filter: brightness(1.1); transform: translateY(-2px); }
+		@media (min-width: 768px) { padding: 0.8rem 1.8rem !important; font-size: 0.85rem !important; }
+	}
+
+	.hidden { display: none !important; }
+
+	.video-controls { display: flex; align-items: center; gap: 1.2rem; margin-left: 0.5rem; }
+	.ctrl-icon { 
+		background: none; border: none; color: #ffffff; cursor: pointer; opacity: 0.7; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+		&:hover { opacity: 1; transform: scale(1.1); color: var(--site-accent); }
+	}
+
+	.arrow { 
+		position: absolute; 
+		top: 50%; transform: 
+		translateY(-50%); 
+		color: white; 
+		padding: 1rem; 
+		opacity: 0.7; 
+		z-index: 10; 
+		cursor: pointer; 
+		border: none; 
+		background: none; 
+		display: block; 
+		@media (min-width: 1024px) 
+		{ display: block; } &:hover 
+		{ opacity: 1; } &.prev 
+		{ left: 2%; } &.next 
+		{ right: 2%; } }
+	.dots { 
+		position: absolute; 
+		top: 50%;
+		left: 50%; 
+		transform: translateX(-50%); 
+		display: flex; 
+		gap: 0.5rem; 
+		z-index: 10; 
+		/* ==========================================
+		   2. ESTILOS PC / TABLET (A partir de 768px)
+		   ========================================== */
+		@media (min-width: 768px) { 
+			top: auto; /* MATA EL TOP 45% DEL MÓVIL */
+			bottom: 3rem; /* Lo vuelve a pegar abajo */
+			transform: translateX(-50%); /* Solo centramos en horizontal */
+		}}
+	
+	.dot { width: 8px; 
+		height: 8px; 
+		border-radius: 50%; 
+		background-color: rgba(255,255,255,0.3); 
+		transition: background-color 0.3s; 
+		cursor: pointer; 
+		&.active { background-color: var(--site-accent); } }
+
+	/* SECCIÓN PROYECTOS INTACTA */
+	.projects-section { padding: 4rem 1rem; background-color: var(--test-bg-page); }
+	.projects-container { max-width: 1400px; margin: 0 auto; }
+	.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 1rem; }
+	.section-title { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: #111; margin: 0; }
+	.carousel-controls { display: flex; gap: 0.5rem; }
+	.ctrl-btn { background: none; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #555; transition: all 0.2s; &:hover { background-color: #f0f0f0; border-color: #999; } }
+	.projects-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
+	.project-card { width: calc(50% - 0.75rem); max-width: 220px; @media (min-width: 768px) { width: calc(33.333% - 1rem); } @media (min-width: 1024px) { width: calc(16.666% - 1.25rem); } }
+	.poster-img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; margin-bottom: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+	.project-info { text-align: left; }
+	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: #333; text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
+	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: #666; margin: 0; font-style: italic; }
+
+	/* ==========================================
+	   ESTILOS SECCIÓN PRENSA (VISUAL)
+	   ========================================== */
+	.press-section {
+		padding: 5rem 1rem;
+		background-color: var(--test-bg-page); /* Mismo fondo que tus proyectos para que quede integrado */
+		border-top: 1px solid rgba(0,0,0,0.05);
+	}
+
+	.press-container {
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
+	.press-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		justify-content: center; /* Centrado para que quede bonito aunque haya solo una noticia de momento */
+		margin-top: 2.5rem;
+		
+		@media (min-width: 768px) {
+			justify-content: center;
+		}
+	}
+
+	.press-card-visual {
+		position: relative;
+		width: 100%;
+		/* REDUCIMOS EL TAMAÑO MÁXIMO (antes 400px) */
+		max-width: 280px; 
+		border-radius: 4px;
+		overflow: hidden;
+		display: block;
+		box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+		
+		&:hover .press-thumb {
+			transform: scale(1.05);
+		}
+	}
+
+	.img-wrapper {
+		position: relative;
+		width: 100%;
+		/* CAMBIAMOS A FORMATO CUADRADO para que recoja mejor las capturas de webs sin cortar tanto los lados */
+		aspect-ratio: 4 / 3; 
+		overflow: hidden;
+	}
+
+	.press-thumb {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		/* CRUCIAL: Ancla la imagen arriba del todo para no cortar la cabecera de la noticia */
+		object-position: top center; 
+		transition: transform 0.4s ease;
+	}
+
+	.press-gradient {
+		position: absolute;
+		bottom: 0; left: 0; width: 100%; height: 80%;
+		background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+		z-index: 1;
+	}
+
+	.press-content {
+		position: absolute;
+		bottom: 0; left: 0; width: 100%;
+		padding: 1.5rem;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	.press-source {
+		font-family: var(--font-title);
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--site-accent);
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin-bottom: 0.5rem;
+	}
+
+	.press-headline {
+		font-family: var(--font-title);
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: #ffffff;
+		line-height: 1.3;
+		margin: 0;
+		text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+	}
+</style>
