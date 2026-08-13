@@ -33,54 +33,48 @@ const { title, description } = Astro.props;
 	<body>
 		
 		<header class="site-header">
-			<div class="header-container">
-				
-				<div class="mobile-header">
-					<a href="/" class="logo-link">
-						<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="header-logo-img" />
-						<div class="logo-text-group">
-							<span class="brand-title">CUMBRE<strong>SERENA</strong></span>
-							<span class="logo-accent">WORLD PRODUCTIONS</span>
-						</div>
-					</a>
-					<div class="mobile-actions">
-						<button aria-label="Menú" id="btn-menu">
-							<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-						</button>
-					</div>
-				</div>
-
-				<div class="desktop-header">
-					<div class="logo-wrapper">
-						<a href="/" class="logo-link-large">
-							<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="header-logo-img" />
-							<div class="logo-text-group">
-								<span class="brand-title">CUMBRE<strong>SERENA</strong></span>
-								<span class="logo-accent">WORLD PRODUCTIONS</span>
-							</div>
-						</a>
-					</div>
-					
-					<div class="nav-wrapper">
-						<nav class="main-nav">
-							<ul>
-								<li><a href="/">INICIO</a></li>
-								<li><a href="/about">QUIÉNES SOMOS</a></li>
-								<li><a href="/#proyectos">PROYECTOS</a></li>
-								<li><a href="/editorial">EDITORIAL</a></li>
-								<li><a href="/contact">CONTACTO</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-
+	<div class="header-container">
+		
+		<!-- MÓVIL: solo dejamos el tag <img> -->
+		<div class="mobile-header">
+			<a href="/" class="logo-link">
+				<img src="/img/logo_maravilla_large.png" alt="Logo Maravilla Films" class="header-logo-img" />
+			</a>
+			<div class="mobile-actions">
+				<button aria-label="Menú" id="btn-menu">
+					<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+				</button>
 			</div>
-		</header>
+		</div>
+
+		<!-- ESCRITORIO: solo dejamos el tag <img> -->
+		<div class="desktop-header">
+			<div class="logo-wrapper">
+				<a href="/" class="logo-link-large">
+					<img src="/img/logo_maravilla_large.png" alt="Logo Maravilla Films" class="header-logo-img-large" />
+				</a>
+			</div>
+			
+			<div class="nav-wrapper">
+				<nav class="main-nav">
+					<ul>
+						<li><a href="/">INICIO</a></li>
+						<li><a href="/about">QUIÉNES SOMOS</a></li>
+						<li><a href="/#proyectos">PROYECTOS</a></li>
+						<!-- <li><a href="/editorial">EDITORIAL</a></li> -->
+						<li><a href="/contact">CONTACTO</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+</header>
 
 		<div class="mobile-nav-overlay" id="mobile-menu">
 			<nav class="mobile-nav-drawer">
 				<div class="drawer-header">
-					<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="drawer-logo" />
+					<img src="/img/logo_maravilla_large.png" alt="Logo Maravilla Films" class="drawer-logo" />
 					<button id="btn-close-menu" aria-label="Cerrar Menú">
 						<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 					</button>
@@ -89,7 +83,7 @@ const { title, description } = Astro.props;
 					<li><a href="/">INICIO</a></li>
 					<li><a href="/about">QUIÉNES SOMOS</a></li>
 					<li><a href="/#proyectos">PROYECTOS</a></li>
-					<li><a href="/editorial">EDITORIAL</a></li>
+					<!-- <li><a href="/editorial">EDITORIAL</a></li> -->
 					<li><a href="/contact">CONTACTO</a></li>
 				</ul>
 			</nav>
@@ -102,20 +96,19 @@ const { title, description } = Astro.props;
 		<footer class="site-footer">
 			<div class="footer-content">
 				
-				<img src="/img/logo1.png" alt="Logo Cumbre Serena" class="footer-logo-img">
-				<div class="footer-logo-text">CUMBRE SERENA WORLD PRODUCTIONS</div>
+				<img src="/img/logo_maravilla.png" alt="Logo Maravilla Films" class="footer-logo-img">
 				
 				<div class="footer-social">
-					<a href="https://www.instagram.com/produccionescumbreserena/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+					<a href="https://www.instagram.com/maravillafilms/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
 					</a>
-					<a href="https://www.tiktok.com/@produccionescumbreserena?lang=es" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+					<a href="https://www.tiktok.com/@maravillafilms?lang=es" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
 					</a>
 					<a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
 					</a>
-					<a href="https://www.linkedin.com/in/producciones-cumbre-serena-56523a3b6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+					<a href="https://www.linkedin.com/in/maravillafilms-56523a3b6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
 					</a>
 				</div>
@@ -129,7 +122,7 @@ const { title, description } = Astro.props;
 			</div>
 			
 			<div class="footer-bottom">
-				<p>© 2026 Cumbre Serena World Productions. Todos los derechos reservados.</p>
+				<p>© 2026 Maravilla Films. Todos los derechos reservados.</p>
 			</div>
 		</footer>
 
@@ -182,15 +175,15 @@ const { title, description } = Astro.props;
 	/* ==========================================
 	   1. VARIABLES DE DISEÑO (SASS + NATIVAS)
 	   ========================================== */
-	$color-bg:        #0a0a0a;
+	$color-bg:        #000000;
 	$color-text:      #F5F5F5;
-	$color-accent:    #00A896;
+	$color-accent:    #0050FB;
 	$font-body:       'Playfair Display', 'Montserrat', 'Cinzel', serif;
 	$font-title:      'Barlow', 'Poppins', 'Inter', sans-serif;
 	$max-width-site:  1200px;
 
 	:root {
-		--test-bg-page: #e3ecec;
+		--test-bg-page: #B0AEAF;
 		--site-bg: #{$color-bg};
 		--site-text: #{$color-text};
 		--site-accent: #{$color-accent};
@@ -231,7 +224,7 @@ const { title, description } = Astro.props;
 	   3. HEADER GENERAL & STICKY
 	   ========================================== */
 	.site-header {
-		background-color: var(--test-bg-page); 
+		background-color: var(--site-bg); 
 		border-bottom: 1px solid rgba(0,0,0,0.05);
 		position: sticky;
 		top: 0;
@@ -249,9 +242,10 @@ const { title, description } = Astro.props;
 	   4. MARCA Y LOGO (COMÚN MOBILE/DESKTOP)
 	   ========================================== */
 	.logo-link, .logo-link-large {
-		display: flex;
-		align-items: center;
-	}
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
 	
 	.header-logo-img {
 		height: auto;
@@ -294,10 +288,14 @@ const { title, description } = Astro.props;
 		display: flex; 
 		justify-content: space-between; 
 		align-items: center;
-		height: 60px;
+		height: 70px; /* Incrementado ligeramente para dar más espacio visual al logo */
 		
 		.logo-link { gap: 0.6rem; }
-		.header-logo-img { width: 32px; }
+		.header-logo-img { 
+		height: 48px; /* Ajusta este valor si necesitas que el logo sea más grande o pequeño en móvil */
+		width: auto;
+		object-fit: contain;
+		}
 		.brand-title { font-size: 1.1rem; }
 		.logo-accent { 
 			font-size: 0.55rem; 
@@ -318,20 +316,35 @@ const { title, description } = Astro.props;
 	   6. HEADER VERSIÓN DESKTOP (PC)
 	   ========================================== */
 	@media (min-width: 1024px) {
-		.mobile-header { display: none; }
-		
-		.desktop-header { 
-			display: flex; 
-			flex-direction: column; 
-			align-items: center; 
-			padding: 2.5rem 0 1.5rem; 
-		}
-		
-		.logo-wrapper { margin-bottom: 2rem; }
+	.mobile-header { display: none; }
+	
+	.desktop-header { 
+		display: flex; 
+		flex-direction: column; 
+		align-items: center; 
+		padding: 2rem 0 1.5rem; 
+	}
+	
+	.logo-wrapper { 
+		margin-bottom: 1.5rem; 
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
 		.logo-link-large { gap: 0.8rem; }
 		
 		.desktop-header {
-			.header-logo-img { width: 45px; }
+			.header-logo-img-large { 
+		max-height: 120px; /* Controla la altura máxima en PC */
+		width: auto;
+		max-width: 100%;
+		object-fit: contain;
+		transition: transform 0.3s ease;
+
+		&:hover {
+			transform: scale(1.02); /* Sutil efecto hover al pasar el ratón */
+		}
+	}
 			.brand-title { font-size: 2.2rem; letter-spacing: 1px; }
 			.logo-accent { font-size: 0.7rem; letter-spacing: 4px; margin-top: 6px; }
 		}
@@ -397,7 +410,8 @@ const { title, description } = Astro.props;
 	}
 	
 	.footer-logo-img { 
-		width: 40px; 
+		width: clamp(5rem, 10vw, 10rem);
+  		height: auto;
 		margin-bottom: 1rem;
 		opacity: 0.9; 
 	}
@@ -502,7 +516,7 @@ const { title, description } = Astro.props;
 		border-bottom: 1px solid rgba(255,255,255,0.1);
 		padding-bottom: 1rem;
 
-		.drawer-logo { width: 32px; }
+		.drawer-logo { width: 12rem; }
 		
 		button {
 			color: var(--site-text);
@@ -514,7 +528,7 @@ const { title, description } = Astro.props;
 	.drawer-links {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 2rem;
 
 		a {
 			font-family: var(--font-title);

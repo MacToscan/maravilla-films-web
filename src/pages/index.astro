@@ -7,7 +7,7 @@ const heroSlides = [
 	{
 		id: 1,
 		titulo: "EL RAMO",
-		estado: "PRÓXIMAMENTE",
+		estado: "CIRCUITO DE FESTIVALES",
 		logo: "/img/elramo.webp",
 		video: "/video/el_ramo.mp4",
 		poster: "/img/cartel_el_ramo.webp", /* <-- AQUÍ ESTÁ TU NUEVA PORTADA */
@@ -16,7 +16,7 @@ const heroSlides = [
 	{
 		id: 2,
 		titulo: "RAICES ANCESTRALES",
-		estado: "EN PRODUCCIÓN",
+		estado: "EN DESARROLLO",
 		logo: "/img/raicesancestralesimg.webp", /* <-- Cambia por el logo de tu segundo proyeto */
 		video: "/video/raices_ancestrales.mp4",
 		poster: "/img/cartel_raices.webp", /* <-- Pon la portada del segundo tráiler */
@@ -25,7 +25,7 @@ const heroSlides = [
 	{
 		id: 3,
 		titulo: "ESTO NO ES HOLLYWOOD",
-		estado: "EN PRODUCCIÓN",
+		estado: "EN DESARROLLO",
 		logo: "/img/hollywood_logo.webp", /* <-- Cambia por el logo de tu tercer proyeto */
 		video: "/video/hollywood.mp4",
 		poster: "/img/cartel_hollywood.webp", /* <-- Pon la portada del tercer tráiler */
@@ -36,13 +36,15 @@ const heroSlides = [
 // 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
 // 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
 const proyectos = [
-	{ titulo: "EL RAMO", estado: "Próximamente", imagen: "/img/el_ramo.webp", enlace: "/el-ramo" }, 
-	{ titulo: "RAÍCES ANCESTRALES", estado: "Pre-producción", imagen: "/img/raices_ancestrales_portada.webp", enlace: "/raices-ancestrales" },
-	{ titulo: "ESTO NO ES HOLLYWOOD", estado: "Pre-producción", imagen: "/img/hollywood_portada.webp", enlace: "#" },
-	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/carneycal_portada.webp", enlace: "#" },
+
+	{ titulo: "EL RAMO", estado: "Circuito de festivales", imagen: "/img/el_ramo.webp", enlace: "/el-ramo" }, 
+	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/carneycal_portada.jpeg", enlace: "#" },
+	{ titulo: "RAÍCES ANCESTRALES", estado: "En desarrollo", imagen: "/img/raices_ancestrales_portada.webp", enlace: "/raices-ancestrales" },
+	{ titulo: "ESTO NO ES HOLLYWOOD", estado: "En desarrollo", imagen: "/img/hollywood_portada.webp", enlace: "#" },
+	
 ];
 
-// 3. EN LOS MEDIOS / PRENSA
+// 3. EN LOS MEDIOS / PRENSA. (Reactivar cuando haya contenido)
 const prensa = [
 	{
 		medio: "Diari de Terrassa",
@@ -140,6 +142,8 @@ const prensa = [
 			</div>
 		</div>
 	</section>
+	
+	<!-- Sección de prensa comentada temporalmente, se puede activar cuando haya contenido 
 	<section class="press-section" id="prensa">
 		<div class="press-container">
 			
@@ -164,6 +168,8 @@ const prensa = [
 
 		</div>
 	</section>
+	-->
+	
 </Layout>
 
 <script src="../scripts/slider.js"></script>
@@ -298,8 +304,8 @@ const prensa = [
 	.project-card { width: calc(50% - 0.75rem); max-width: 220px; @media (min-width: 768px) { width: calc(33.333% - 1rem); } @media (min-width: 1024px) { width: calc(16.666% - 1.25rem); } }
 	.poster-img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; margin-bottom: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 	.project-info { text-align: left; }
-	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: #333; text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
-	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: #666; margin: 0; font-style: italic; }
+	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: #232323; text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
+	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: #262525; margin: 0; font-style: italic; }
 
 	/* ==========================================
 	   ESTILOS SECCIÓN PRENSA (VISUAL)

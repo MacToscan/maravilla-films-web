@@ -1,21 +1,48 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Aquí tienes la lista del equipo. Cuando tengas las fotos reales, 
-// solo tienes que subir la foto a la carpeta public/img/ y cambiar el nombre aquí.
+// Añadimos una pequeña bio a cada miembro para que la tarjeta alargada tenga sentido visual
 const equipo = [
-	{ nombre: "DÍDAC TOSCANO", cargo: "PRODUCTOR EJECUTIVO", imagen: "/img/didacpic.webp" },
-	{ nombre: "GONZALO TERRÍN", cargo: "PRODUCTOR EJECUTIVO", imagen: "/img/gonzalopic.webp" },
-	{ nombre: "MARC TOSCANO", cargo: "PRODUCTOR EJECUTIVO", imagen: "/img/marcpic.webp" },
-	{ nombre: "LUIS ORTUBIA", cargo: "GUIONISTA", imagen: "/img/luispic.webp" },
-	{ nombre: "IGNACIO MALAGÓN", cargo: "DIRECTOR", imagen: "/img/maquipic.webp" },
-	{ nombre: "ROXANA MARTIN", cargo: "SECRETARIA EJECUTIVA", imagen: "/img/roxanapic.webp" },
-	{ nombre: "GABY ARELLANO", cargo: "ADMINISTRADORA", imagen: "/img/gabypic.webp" },
-	{ nombre: "PATRICIA ARGIBAY", cargo: "RRPP", imagen: "/img/patripic.webp" },
+	{ 
+		nombre: "DÍDAC TOSCANO", 
+		cargo: "PRODUCTOR EJECUTIVO", 
+		imagen: "/img/didacpic.webp",
+		bio: "Visión estratégica y creativa para el desarrollo de proyectos con potencial internacional."
+	},
+	{ 
+		nombre: "GONZALO TERRÍN", 
+		cargo: "PRODUCTOR EJECUTIVO", 
+		imagen: "/img/gonzalopic.webp",
+		bio: "Con una dilatada trayectoria en el sector financiero, domina a la perfección la viabilidad económica y la financiación audiovisual."
+	},
+	{ 
+		nombre: "MARC TOSCANO", 
+		cargo: "PRODUCTOR EJECUTIVO", 
+		imagen: "/img/marcpic.webp",
+		bio: "Combina el desarrollo de nuestra arquitectura web con la búsqueda y captación de sponsors comerciales."
+	},
+	{ 
+		nombre: "IGNACIO MALAGÓN", 
+		cargo: "DIRECTOR", 
+		imagen: "/img/maquipic.webp",
+		bio: "Director de gran proyección y profunda sensibilidad artística. Aporta una mirada única para potenciar la emoción y narrativa en cada plano."
+	},
+	{ 
+		nombre: "ROXANA MARTIN", 
+		cargo: "COMMUNITY MANAGER", 
+		imagen: "/img/roxanapic.webp",
+		bio: "Especialista en redes sociales y estrategia digital. Construye, dinamiza y da voz a la comunidad online de Maravilla Films."
+	},
+	{ 
+		nombre: "GABY ARELLANO", 
+		cargo: "ADMINISTRADORA", 
+		imagen: "/img/gabypic.webp",
+		bio: "Profesional con amplia experiencia en el sector. Garantiza el control contable, fiscal y el rigor normativo en todas las fases de producción."
+	},
 ];
 ---
 
-<Layout title="Quiénes Somos" description="Conoce al equipo detrás de Cumbre Serena World Productions.">
+<Layout title="Quiénes Somos" description="Conoce al equipo detrás de Maravilla Films.">
 	
 	<main class="about-page">
 		
@@ -25,7 +52,7 @@ const equipo = [
 				<h1 class="hero-title">Cine con identidad, rigor y proyección.</h1>
 				
 				<div class="hero-description">
-					<p>Cumbre Serena nace de la unión de profesionales apasionados por la narrativa cinematográfica. Nuestra filosofía se basa en crear historias con una mirada creativa clara, respaldada por una gestión técnica y financiera precisa.</p>
+					<p>Maravilla Films nace de la unión de profesionales apasionados por la narrativa cinematográfica. Nuestra filosofía se basa en crear historias con una mirada creativa clara, respaldada por una gestión técnica y financiera precisa.</p>
 					<p>Trabajamos con talento emergente y consolidado para desarrollar proyectos que no solo emocionen, sino que tengan una base sólida para viajar internacionalmente.</p>
 				</div>
 			</div>
@@ -35,15 +62,16 @@ const equipo = [
 			<div class="team-container">
 				<h2 class="team-title">EL EQUIPO</h2>
 				
-				<div class="team-grid">
+				<div class="team-list">
 					{equipo.map((miembro) => (
-						<article class="team-card">
+						<article class="team-row">
 							<div class="img-wrapper">
-								<img src={miembro.imagen} alt={`Foto de ${miembro.nombre}`} />
+								<img src={miembro.imagen} alt={`Foto de ${miembro.nombre}`} loading="lazy" />
 							</div>
 							<div class="info">
+								<p class="cargo">{miembro.cargo}</p>
 								<h3>{miembro.nombre}</h3>
-								<p>{miembro.cargo}</p>
+								<p class="bio">{miembro.bio}</p>
 							</div>
 						</article>
 					))}
@@ -58,10 +86,10 @@ const equipo = [
 
 <style lang="scss">
 	/* ==========================================
-	   HERO (TEXTOS EN NEGRO - ESTILO INDEX)
+	   HERO (TEXTOS EN NEGRO)
 	   ========================================== */
 	.about-hero {
-		background-color: var(--site-bg); /* Fondo negro */
+		background-color: var(--site-bg); 
 		padding: 6rem 1.5rem 5rem;
 		text-align: center;
 	}
@@ -109,15 +137,15 @@ const equipo = [
 	}
 
 	/* ==========================================
-	   SECCIÓN EQUIPO (EN BLANCO - ESTILO INDEX)
+	   SECCIÓN EQUIPO (MINIMALISTA, ALARGADO, PEQUEÑO)
 	   ========================================== */
 	.team-section {
-		background-color: var(--test-bg-page); /* Fondo blanco */
-		padding: 5rem 1.5rem 8rem;
+		background-color: #000000; /* Fondo negro elegante */
+		padding: 2rem 1.5rem 8rem;
 	}
 
 	.team-container {
-		max-width: 1200px;
+		max-width: 900px; /* Contenedor más estrecho para que sea recogido */
 		margin: 0 auto;
 	}
 
@@ -126,74 +154,96 @@ const equipo = [
 		font-size: 1.2rem;
 		font-weight: 700;
 		letter-spacing: 4px;
-		color: #111; /* Letra oscura para el fondo blanco */
+		color: #ffffff; 
 		text-align: center;
 		margin-bottom: 4rem;
 	}
 
-	/* CSS GRID: MOBILE FIRST */
-	.team-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem; 
+	/* LISTA DE PERFILES */
+	.team-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem; /* Separación entre cada tarjeta */
+	}
 
+	/* TARJETAS ALARGADAS */
+	.team-row {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: #0a0a0a; /* Fondo sutil para la tarjeta */
+		border-radius: 8px;
+		padding: 2rem;
+		gap: 2rem;
+
+		/* VERSIÓN ESCRITORIO: ALINEACIÓN Y ALTERNANCIA */
 		@media (min-width: 768px) {
-			grid-template-columns: repeat(4, 1fr);
-			gap: 2.5rem;
+			flex-direction: row; /* Imagen a la izquierda, texto a la derecha */
+			align-items: center;
+			padding: 2rem 3rem;
+
+			/* Aquí hacemos que el segundo, cuarto, sexto... se inviertan (imagen derecha) */
+			&:nth-child(even) {
+				flex-direction: row-reverse;
+				text-align: right; /* Alineamos el texto a la derecha para equilibrar */
+			}
 		}
 	}
 
-	/* TARJETAS DE PERFIL */
-	.team-card {
-		.img-wrapper {
+	/* CONTENEDOR DE LA IMAGEN (TAMAÑO FIJO Y PEQUEÑO) */
+	.img-wrapper {
+		width: 100%;
+		max-width: 180px; /* ¡CLAVE! Tamaño máximo muy pequeño y controlado */
+		aspect-ratio: 4 / 5; /* Mantenemos tu proporción original de la tarjeta[cite: 5] */
+		flex-shrink: 0; /* Evita que la foto se encoja si hay mucho texto */
+		border-radius: 4px;
+		overflow: hidden;
+		background-color: #1a1a1a;
+
+		img {
 			width: 100%;
-			aspect-ratio: 4 / 5; 
-			overflow: hidden;
-			background-color: #f0f0f0; /* Fondo gris clarito por si tarda la foto */
-			margin-bottom: 1rem; 
-			border-radius: 2px;
-
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				filter: grayscale(100%); 
-				transition: filter 0.4s ease, transform 0.4s ease;
-			}
+			height: 100%;
+			object-fit: cover;
+			filter: grayscale(80%); 
+			transition: filter 0.4s ease, transform 0.4s ease;
 		}
 
-		/* EFECTO HOVER PROFESIONAL */
-		&:hover {
-			.img-wrapper img {
-				filter: grayscale(0%);
-				transform: scale(1.03);
-			}
+		/* EFECTO HOVER PROFESIONAL[cite: 5] */
+		&:hover img {
+			filter: grayscale(0%);
+			transform: scale(1.03);
+		}
+	}
+
+	/* TEXTO DE LA TARJETA */
+	.info {
+		flex: 1; /* Ocupa el resto del espacio disponible */
+		
+		.cargo {
+			font-family: var(--font-title);
+			font-size: 0.75rem; 
+			font-weight: 600;
+			color: #b5493b; /* Color rojizo apagado como tu referencia */
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			margin-bottom: 0.5rem;
 		}
 
-		.info {
-			text-align: left;
-			
-			h3 {
-				font-family: var(--font-title);
-				font-size: 0.9rem; 
-				font-weight: 700;
-				color: #222; /* Letra oscura sobre blanco */
-				letter-spacing: 0.5px;
-				margin-bottom: 0.2rem;
-
-				@media (min-width: 768px) {
-					font-size: 1.1rem;
-				}
-			}
-			p {
-				font-family: var(--font-title);
-				font-size: 0.7rem; 
-				font-weight: 600;
-				color: var(--site-accent);
-				text-transform: uppercase;
-				letter-spacing: 1px;
-				margin: 0;
-			}
+		h3 {
+			font-family: var(--font-title);
+			font-size: 1.8rem; 
+			font-weight: 700;
+			color: #ffffff; 
+			letter-spacing: 1px;
+			margin-bottom: 1rem;
+		}
+		
+		.bio {
+			font-family: var(--font-body);
+			font-size: 1rem;
+			color: rgba(255, 255, 255, 0.6);
+			line-height: 1.6;
+			margin: 0;
 		}
 	}
 </style>
