@@ -28,8 +28,9 @@ import Layout from '../layouts/Layout.astro';
 					</a>
 				</div>
 
-				<form class="minimal-form" name="contacto-home" method="POST" data-netlify="true" netlify-honeypot="website_url">
-					<input type="hidden" name="form-name" value="contacto-home" />
+				<div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+
+				<form class="minimal-form" name="contacto-home" method="POST" action="/api/contact">
 					
 					<div class="honeypot-field" aria-hidden="true" style="display: none;">
 						<label for="website_url">Si eres humano, deja este campo vacío</label>
@@ -58,6 +59,23 @@ import Layout from '../layouts/Layout.astro';
 	</main>
 
 </Layout>
+
+<script>
+	const params = new URLSearchParams(window.location.search);
+	const status = document.getElementById('form-status');
+
+	if (status && params.get('enviado') === '1') {
+		status.textContent = 'Gracias. Tu mensaje se ha enviado correctamente.';
+		status.classList.add('is-success');
+		status.hidden = false;
+	}
+
+	if (status && params.get('error') === '1') {
+		status.textContent = 'No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos directamente por correo.';
+		status.classList.add('is-error');
+		status.hidden = false;
+	}
+</script>
 
 <style lang="scss">
 	/* ==========================================
@@ -112,6 +130,25 @@ import Layout from '../layouts/Layout.astro';
 	.form-container {
 		max-width: 800px; /* Más estrecho para que el formulario se vea elegante */
 		margin: 0 auto;
+	}
+
+	.form-status {
+		margin-bottom: 2rem;
+		padding: 1rem 1.25rem;
+		border-radius: 3px;
+		font-family: var(--font-title);
+		font-size: 0.95rem;
+		line-height: 1.5;
+
+		&.is-success {
+			background-color: rgba(20, 120, 70, 0.12);
+			color: #145c39;
+		}
+
+		&.is-error {
+			background-color: rgba(170, 35, 35, 0.12);
+			color: #8c2020;
+		}
 	}
 
 	/* INFORMACIÓN DIRECTA DE CONTACTO */
