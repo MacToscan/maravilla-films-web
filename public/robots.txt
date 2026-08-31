@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maravillafilms.com/sitemap.xml
