@@ -6,6 +6,10 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const siteName = 'Maravilla Films';
+const fullTitle = `${title} | ${siteName}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maravillafilms.com');
+const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'https://maravillafilms.com');
 ---
 
 <!doctype html>
@@ -14,17 +18,27 @@ const { title, description } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
-		<title>{title} | Maravilla Films</title>
+		<title>{fullTitle}</title>
+		<link rel="canonical" href={canonicalURL} />
 		
 		<link rel="icon" type="image/png" href="/img/favicon.png" />
 		
-		<meta property="og:title" content={title} />
+		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="es_ES" />
 		
-		<meta property="og:image" content="https://maravilla-films-web.pages.dev/img/maravilla_whatsapp.webp" />
+		<meta property="og:image" content={socialImageURL} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Maravilla Films" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageURL} />
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
