@@ -3,13 +3,40 @@
 interface Props {
 	title: string;
 	description: string;
+	titlePosition?: 'before' | 'after';
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, titlePosition = 'after', noindex = false } = Astro.props;
 const siteName = 'Maravilla Films';
-const fullTitle = `${title} | ${siteName}`;
+const fullTitle = titlePosition === 'before' ? `${siteName} | ${title}` : `${title} | ${siteName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maravillafilms.com');
 const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'https://maravillafilms.com');
+const isHomePage = Astro.url.pathname === '/';
+const organizationData = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	'@id': 'https://maravillafilms.com/#organization',
+	name: siteName,
+	url: 'https://maravillafilms.com/',
+	logo: 'https://maravillafilms.com/img/logo_maravilla.png',
+	image: 'https://maravillafilms.com/img/maravilla_whatsapp.webp',
+	description: 'Productora cinematográfica independiente dedicada al desarrollo y producción de cortometrajes, documentales y proyectos audiovisuales.',
+	email: 'producciones@maravillafilms.com',
+	telephone: '+34 622 360 554',
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: 'Parc Audiovisual de Catalunya, 11',
+		addressLocality: 'Terrassa',
+		addressRegion: 'Barcelona',
+		addressCountry: 'ES',
+	},
+	sameAs: [
+		'https://www.instagram.com/maravillafilms/',
+		'https://www.tiktok.com/@maravillafilms?lang=es',
+		'https://www.linkedin.com/in/maravillafilms-56523a3b6/',
+	],
+};
 ---
 
 <!doctype html>
@@ -18,6 +45,7 @@ const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'ht
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<title>{fullTitle}</title>
 		<link rel="canonical" href={canonicalURL} />
 		
@@ -39,6 +67,8 @@ const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'ht
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageURL} />
+
+		{isHomePage && <script type="application/ld+json" set:html={JSON.stringify(organizationData)} />}
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,6 +159,8 @@ const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'ht
 				
 				<div class="footer-legal">
 					<a href="/privacidad">Política de Privacidad</a>
+					<span class="separator">·</span>
+					<a href="/cookies">Política de Cookies</a>
 					<span class="separator">·</span>
 					<a href="/aviso-legal">Aviso Legal</a>
 				</div>
@@ -233,6 +265,19 @@ const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'ht
 	a { text-decoration: none; color: inherit; }
 	ul { list-style: none; }
 	button { background: none; border: none; cursor: pointer; color: inherit; }
+
+	/* Texto accesible para títulos representados visualmente mediante logotipos. */
+	.sr-only.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
 
 	/* ==========================================
 	   3. HEADER GENERAL & STICKY

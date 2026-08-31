@@ -61,9 +61,14 @@ const prensa = [
 ];
 ---
 
-<Layout title="Inicio" description="Maravilla Films - Cine con identidad">
+<Layout
+	title="Productora cinematográfica"
+	titlePosition="before"
+	description="Productora cinematográfica independiente dedicada al desarrollo y producción de cortometrajes, documentales y proyectos audiovisuales con identidad propia."
+>
 	
 	<section class="hero-slider" id="hero-slider">
+		<h1 class="sr-only">Maravilla Films — Productora cinematográfica</h1>
 		
 		{heroSlides.map((slide, index) => (
 			<div class={`hero-slide ${index === 0 ? 'active' : ''}`} data-index={index}>

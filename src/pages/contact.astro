@@ -2,7 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contacto" description="Contacta con Maravilla Films para proyectos, distribución o información general.">
+<Layout
+	title="Contacto"
+	description="Contacta con Maravilla Films para propuestas de proyectos audiovisuales, producción, distribución o consultas generales."
+>
 	
 	<main class="contact-page">
 		
@@ -49,6 +52,12 @@ import Layout from '../layouts/Layout.astro';
 					<div class="input-group">
 						<textarea name="mensaje" id="mensaje" rows="4" required placeholder="Tu mensaje..."></textarea>
 					</div>
+
+					<p class="form-privacy">
+						<strong>Responsable:</strong> Cumbre Serena S.L. <strong>Finalidad:</strong> gestionar y responder tu consulta.
+						<strong>Legitimación:</strong> medidas precontractuales e interés legítimo. Los proveedores tecnológicos necesarios pueden tratar los datos con garantías adecuadas.
+						Puedes ejercer tus derechos y consultar más información en la <a href="/privacidad">Política de Privacidad</a>.
+					</p>
 
 					<button class="btn-solid" type="submit">ENVIAR MENSAJE</button>
 				</form>
@@ -148,6 +157,20 @@ import Layout from '../layouts/Layout.astro';
 		&.is-error {
 			background-color: rgba(170, 35, 35, 0.12);
 			color: #8c2020;
+		}
+	}
+
+	.form-privacy {
+		margin: 1.5rem 0;
+		font-family: var(--font-title);
+		font-size: 0.78rem;
+		line-height: 1.65;
+		color: #3f3f3f;
+
+		a {
+			color: #003fc7;
+			text-decoration: underline;
+			text-underline-offset: 2px;
 		}
 	}
 
