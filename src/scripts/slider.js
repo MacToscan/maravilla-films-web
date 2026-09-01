@@ -22,8 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const oldPlayBtn = slides[currentSlide].querySelector('.btn-play-trailer');
         const oldControls = slides[currentSlide].querySelector('.video-controls');
+        const oldCenterBtn = slides[currentSlide].querySelector('.btn-center-play');
         if(oldPlayBtn) oldPlayBtn.classList.remove('hidden');
         if(oldControls) oldControls.classList.add('hidden');
+        if(oldCenterBtn) {
+            oldCenterBtn.classList.remove('is-hidden');
+            oldCenterBtn.querySelector('.icon-play')?.classList.remove('hidden');
+            oldCenterBtn.querySelector('.icon-pause')?.classList.add('hidden');
+            oldCenterBtn.setAttribute('aria-label', 'Reproducir tráiler');
+        }
 
         // Calcular nuevo índice
         currentSlide = (index + slides.length) % slides.length;
@@ -50,15 +57,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const videoControls = slide.querySelector('.video-controls');
         const pauseBtn = slide.querySelector('.btn-pause');
         const muteBtn = slide.querySelector('.btn-mute');
+        const centerLayer = slide.querySelector('.video-center-control');
+        const centerBtn = slide.querySelector('.btn-center-play');
+        const centerPlayIcon = centerBtn?.querySelector('.icon-play');
+        const centerPauseIcon = centerBtn?.querySelector('.icon-pause');
+
+        const showCenterControl = (mode) => {
+            if(!centerBtn) return;
+            centerBtn.classList.remove('is-hidden');
+            centerPlayIcon?.classList.toggle('hidden', mode !== 'play');
+            centerPauseIcon?.classList.toggle('hidden', mode !== 'pause');
+            centerBtn.setAttribute('aria-label', mode === 'play' ? 'Reproducir tráiler' : 'Pausar tráiler');
+        };
+
+        const startTrailer = () => {
+            if(!video) return;
+            video.muted = false;
+            video.play();
+            playTrailerBtn?.classList.add('hidden');
+            videoControls?.classList.remove('hidden');
+            slide.classList.add('is-playing');
+            centerBtn?.classList.add('is-hidden');
+        };
 
         if(playTrailerBtn && video) {
-            playTrailerBtn.addEventListener('click', () => {
-                video.muted = false; 
-                video.play(); 
-                
-                playTrailerBtn.classList.add('hidden'); 
-                videoControls.classList.remove('hidden'); 
-                slide.classList.add('is-playing'); // Modo cine
+            playTrailerBtn.addEventListener('click', startTrailer);
+        }
+
+        if(centerBtn && video) {
+            centerBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if(video.paused) {
+                    startTrailer();
+                } else {
+                    video.pause();
+                    showCenterControl('play');
+                }
+            });
+        }
+
+        if(centerLayer && video) {
+            slide.addEventListener('click', (event) => {
+                if(video.paused || event.target.closest('a, button, .dots')) return;
+                showCenterControl('pause');
             });
         }
 
@@ -66,9 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
             pauseBtn.addEventListener('click', () => {
                 if(video.paused) {
                     video.play();
+                    centerBtn?.classList.add('is-hidden');
                     pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
                 } else {
                     video.pause();
+                    showCenterControl('play');
                     pauseBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
                 }
             });
