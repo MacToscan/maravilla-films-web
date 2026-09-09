@@ -21,14 +21,14 @@ const { title, updated } = Astro.props;
 
 <style lang="scss">
 	.legal-page {
-		background-color: var(--test-bg-page);
-		color: #171717;
+		background-color: var(--site-bg-light);
+		color: var(--site-ink);
 	}
 
 	.legal-header {
 		padding: 4rem 1.5rem;
 		background-color: var(--site-bg);
-		color: #ffffff;
+		color: var(--site-text);
 		text-align: center;
 
 		@media (min-width: 768px) {
@@ -54,7 +54,7 @@ const { title, updated } = Astro.props;
 	.legal-updated {
 		margin-top: 1.25rem;
 		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.65);
+		color: var(--site-text-muted);
 	}
 
 	.legal-content {
@@ -71,7 +71,7 @@ const { title, updated } = Astro.props;
 			font-family: var(--font-title);
 			font-size: clamp(1.3rem, 4vw, 1.75rem);
 			line-height: 1.25;
-			color: #111111;
+			color: var(--site-ink);
 		}
 
 		:global(h2:first-child) {
@@ -82,14 +82,14 @@ const { title, updated } = Astro.props;
 			margin: 1.75rem 0 0.75rem;
 			font-family: var(--font-title);
 			font-size: 1.05rem;
-			color: #171717;
+			color: var(--site-ink);
 		}
 
 		:global(p),
 		:global(li) {
 			font-size: 1rem;
 			line-height: 1.75;
-			color: #282828;
+			color: var(--site-ink-soft);
 		}
 
 		:global(p + p) {
@@ -105,7 +105,7 @@ const { title, updated } = Astro.props;
 		}
 
 		:global(a) {
-			color: #003fc7;
+			color: var(--site-accent);
 			text-decoration: underline;
 			text-underline-offset: 3px;
 		}

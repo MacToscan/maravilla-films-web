@@ -180,7 +180,7 @@ const productoresEjecutivos = [
 	.hero-title {
 		font-family: var(--font-title); 
 		font-size: 2rem;
-		color: #ffffff;
+		color: var(--site-text);
 		line-height: 1.2;
 		margin-bottom: 2.5rem;
 		
@@ -193,7 +193,7 @@ const productoresEjecutivos = [
 		p {
 			font-family: var(--font-title);
 			font-size: 1.1rem;
-			color: rgba(255, 255, 255, 0.7);
+			color: var(--site-text-muted);
 			line-height: 1.8;
 			margin-bottom: 1.5rem;
 			text-align: left;
@@ -208,7 +208,7 @@ const productoresEjecutivos = [
 	   SECCIÓN EQUIPO
 	   ========================================== */
 	.team-section {
-		background-color: #000000; /* Fondo negro elegante */
+		background-color: var(--site-bg); /* Fondo negro elegante */
 		padding: 2rem 1.5rem 8rem;
 	}
 
@@ -222,7 +222,7 @@ const productoresEjecutivos = [
 		font-size: 1.2rem;
 		font-weight: 700;
 		letter-spacing: 4px;
-		color: #ffffff; 
+		color: var(--site-text);
 		text-align: center;
 		margin-bottom: 4rem;
 	}
@@ -237,7 +237,7 @@ const productoresEjecutivos = [
 	.team-row {
 		display: flex;
 		flex-direction: column;
-		background-color: #0a0a0a;
+		background-color: var(--site-surface-deep);
 		border-radius: 8px;
 		overflow: hidden;
 
@@ -256,7 +256,7 @@ const productoresEjecutivos = [
 		aspect-ratio: 16 / 9;
 		flex-shrink: 0;
 		overflow: hidden;
-		background-color: #050505;
+		background-color: var(--site-surface-deep);
 
 		img {
 			display: block;
@@ -310,7 +310,7 @@ const productoresEjecutivos = [
 			font-family: var(--font-title);
 			font-size: 1.8rem; 
 			font-weight: 700;
-			color: #ffffff; 
+			color: var(--site-text);
 			letter-spacing: 1px;
 			margin-bottom: 1rem;
 		}
@@ -318,7 +318,7 @@ const productoresEjecutivos = [
 		.bio {
 			font-family: var(--font-body);
 			font-size: 1rem;
-			color: rgba(255, 255, 255, 0.6);
+			color: var(--site-text-muted);
 			line-height: 1.6;
 			margin: 0;
 		}
@@ -340,9 +340,9 @@ const productoresEjecutivos = [
 		max-width: 760px;
 		margin: 0 auto 3rem;
 		padding: 1.25rem 1.5rem;
-		border: 1px solid rgba(255, 255, 255, 0.16);
+		border: 1px solid var(--site-border);
 		border-radius: 8px;
-		background: #0a0a0a;
+		background: var(--site-surface-deep);
 		font-family: var(--font-title);
 		font-size: 0.72rem;
 		font-weight: 600;
@@ -354,7 +354,7 @@ const productoresEjecutivos = [
 			font-size: 1.05rem;
 			font-weight: 700;
 			letter-spacing: 1px;
-			color: #ffffff;
+			color: var(--site-text);
 		}
 
 		&::after {
@@ -364,7 +364,7 @@ const productoresEjecutivos = [
 			left: 50%;
 			width: 1px;
 			height: 3rem;
-			background: rgba(255, 255, 255, 0.22);
+			background: var(--site-border-decorative);
 		}
 
 		@media (min-width: 768px) {
@@ -383,7 +383,7 @@ const productoresEjecutivos = [
 		gap: 0.85rem;
 		margin-left: 1rem;
 		padding-left: 1.5rem;
-		border-left: 1px solid rgba(255, 255, 255, 0.22);
+		border-left: 1px solid var(--site-border-decorative);
 
 		&::before {
 			content: "";
@@ -392,7 +392,7 @@ const productoresEjecutivos = [
 			left: 0;
 			width: calc(50% - 1rem);
 			height: 1px;
-			background: rgba(255, 255, 255, 0.22);
+			background: var(--site-border-decorative);
 		}
 
 		@media (min-width: 768px) {
@@ -414,7 +414,7 @@ const productoresEjecutivos = [
 				left: 12.5%;
 				right: 12.5%;
 				height: 1px;
-				background: rgba(255, 255, 255, 0.22);
+				background: var(--site-border-decorative);
 			}
 		}
 	}
@@ -423,14 +423,14 @@ const productoresEjecutivos = [
 		position: relative;
 		margin: 0;
 		padding: 1.2rem 1rem;
-		border: 1px solid rgba(255, 255, 255, 0.12);
+		border: 1px solid var(--site-border);
 		border-radius: 6px;
-		background: #0a0a0a;
+		background: var(--site-surface-deep);
 		font-family: var(--font-title);
 		font-size: 1.4rem;
 		font-weight: 700;
 		letter-spacing: 1px;
-		color: rgba(255, 255, 255, 0.86);
+		color: var(--site-text-soft);
 
 		&::before {
 			content: "";
@@ -439,7 +439,7 @@ const productoresEjecutivos = [
 			right: 100%;
 			width: 1.5rem;
 			height: 1px;
-			background: rgba(255, 255, 255, 0.22);
+			background: var(--site-border-decorative);
 		}
 
 		@media (min-width: 768px) {

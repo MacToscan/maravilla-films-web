@@ -69,7 +69,7 @@ import Layout from '../layouts/Layout.astro';
 		margin: 0 auto 2.5rem;
 		font-size: 1.05rem;
 		line-height: 1.7;
-		color: rgba(245, 245, 245, 0.75);
+		color: var(--site-text-muted);
 	}
 
 	.error-actions {
@@ -109,12 +109,12 @@ import Layout from '../layouts/Layout.astro';
 
 	.btn-primary {
 		background-color: var(--site-accent);
-		color: #ffffff;
+		color: var(--site-text);
 	}
 
 	.btn-secondary {
 		background-color: transparent;
-		color: #ffffff;
+		color: var(--site-text);
 
 		&:hover {
 			background-color: var(--site-accent);

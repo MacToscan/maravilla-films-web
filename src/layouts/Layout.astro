@@ -174,10 +174,37 @@ const organizationData = {
 
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
+				const siteHeader = document.querySelector('.site-header');
 				const btnMenu = document.getElementById('btn-menu');
 				const btnClose = document.getElementById('btn-close-menu');
 				const mobileMenu = document.getElementById('mobile-menu');
 				const menuLinks = document.querySelectorAll('.drawer-links a');
+
+				if (siteHeader) {
+					let scrollFrame: number | null = null;
+
+					const updateHeader = () => {
+						const progress = Math.min(Math.max(window.scrollY / 140, 0), 1);
+						const headerElement = siteHeader as HTMLElement;
+						headerElement.style.setProperty('--header-padding-top', `${32 - (23.2 * progress)}px`);
+						headerElement.style.setProperty('--header-padding-bottom', `${24 - (12.8 * progress)}px`);
+						headerElement.style.setProperty('--header-logo-margin', `${24 - (18.4 * progress)}px`);
+						headerElement.style.setProperty('--header-logo-height', `${120 - (62 * progress)}px`);
+						headerElement.style.setProperty('--header-shadow-y', `${8 * progress}px`);
+						headerElement.style.setProperty('--header-shadow-blur', `${24 * progress}px`);
+						headerElement.style.setProperty('--header-shadow-opacity', `${0.28 * progress}`);
+						scrollFrame = null;
+					};
+
+					const requestHeaderUpdate = () => {
+						if (scrollFrame === null) {
+							scrollFrame = window.requestAnimationFrame(updateHeader);
+						}
+					};
+
+					updateHeader();
+					window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
+				}
 
 				if(btnMenu && mobileMenu) {
 					btnMenu.addEventListener('click', () => {
@@ -222,6 +249,10 @@ const organizationData = {
 	   1. VARIABLES DE DISEÑO (SASS + NATIVAS)
 	   ========================================== */
 	$color-bg:        #000000;
+	$color-surface:   #101114;
+	$color-surface-raised: #17181B;
+	$color-surface-deep: #0D0E10;
+	$color-bg-light:  #B0AEAF;
 	$color-text:      #F5F5F5;
 	$color-accent:    #0050FB;
 	$font-body:       'Playfair Display', 'Montserrat', 'Cinzel', serif;
@@ -229,10 +260,29 @@ const organizationData = {
 	$max-width-site:  1200px;
 
 	:root {
-		--test-bg-page: #B0AEAF;
 		--site-bg: #{$color-bg};
+		--site-surface: #{$color-surface};
+		--site-surface-raised: #{$color-surface-raised};
+		--site-surface-deep: #{$color-surface-deep};
+		--site-bg-light: #{$color-bg-light};
 		--site-text: #{$color-text};
+		--site-text-strong: rgba(245, 245, 245, 0.95);
+		--site-text-soft: rgba(245, 245, 245, 0.8);
+		--site-text-muted: rgba(245, 245, 245, 0.72);
+		--site-text-subtle: rgba(245, 245, 245, 0.4);
+		--site-text-faint: rgba(245, 245, 245, 0.3);
+		--site-ink: #171717;
+		--site-ink-soft: #333333;
+		--site-ink-muted: #555555;
 		--site-accent: #{$color-accent};
+		--site-border-subtle: rgba(255, 255, 255, 0.08);
+		--site-border: rgba(255, 255, 255, 0.12);
+		--site-border-decorative: rgba(255, 255, 255, 0.22);
+		--site-border-strong: rgba(255, 255, 255, 0.28);
+		--site-border-dark: rgba(0, 0, 0, 0.1);
+		--button-radius: 3px;
+		--button-min-height: 44px;
+		--button-padding: 0.75rem 1.5rem;
 		--font-body: #{$font-body};
 		--font-title: #{$font-title};
 	}
@@ -252,8 +302,8 @@ const organizationData = {
 	
 	body { 
 		font-family: var(--font-body);
-		color: #333;
-		background-color: var(--test-bg-page); 
+		color: var(--site-ink-soft);
+		background-color: var(--site-bg-light);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	}
@@ -284,10 +334,11 @@ const organizationData = {
 	   ========================================== */
 	.site-header {
 		background-color: var(--site-bg); 
-		border-bottom: 1px solid rgba(0,0,0,0.05);
+		border-bottom: 1px solid var(--site-border-subtle);
 		position: sticky;
 		top: 0;
 		z-index: 999;
+		transition: box-shadow 0.35s ease;
 	}
 	
 	.header-container { 
@@ -320,12 +371,12 @@ const organizationData = {
 
 	.brand-title {
 		font-family: var(--font-title);
-		color: #333;
+		color: var(--site-ink-soft);
 		display: flex;       
 		align-items: baseline; 
 		
 		strong { 
-			color: #111; 
+			color: var(--site-ink);
 			font-weight: 700;
 			margin-left: 0.2rem; 
 		}
@@ -375,17 +426,35 @@ const organizationData = {
 	   6. HEADER VERSIÓN DESKTOP (PC)
 	   ========================================== */
 	@media (min-width: 1024px) {
+	body {
+		padding-top: 211px;
+	}
+
+	.site-header {
+		--header-padding-top: 32px;
+		--header-padding-bottom: 24px;
+		--header-logo-margin: 24px;
+		--header-logo-height: 120px;
+		--header-shadow-y: 0px;
+		--header-shadow-blur: 0px;
+		--header-shadow-opacity: 0;
+		position: fixed;
+		left: 0;
+		right: 0;
+		box-shadow: 0 var(--header-shadow-y) var(--header-shadow-blur) rgba(0, 0, 0, var(--header-shadow-opacity));
+	}
+
 	.mobile-header { display: none; }
 	
 	.desktop-header { 
 		display: flex; 
 		flex-direction: column; 
 		align-items: center; 
-		padding: 2rem 0 1.5rem; 
+		padding: var(--header-padding-top) 0 var(--header-padding-bottom);
 	}
 	
 	.logo-wrapper { 
-		margin-bottom: 1.5rem; 
+		margin-bottom: var(--header-logo-margin);
 		width: 100%;
 		display: flex;
 		justify-content: center;
@@ -394,7 +463,7 @@ const organizationData = {
 		
 		.desktop-header {
 			.header-logo-img-large { 
-		max-height: 120px; /* Controla la altura máxima en PC */
+		max-height: var(--header-logo-height); /* Controla la altura máxima en PC */
 		width: auto;
 		max-width: 100%;
 		object-fit: contain;
@@ -434,19 +503,27 @@ const organizationData = {
 				transform: translateY(-50%);
 				height: 12px; 
 				width: 1px; 
-				background-color: rgba(0,0,0,0.15); 
+				background-color: var(--site-border-strong);
 			}
 		}
 		
 		.main-nav a {
 			font-size: 0.9rem; 
 			font-weight: 700; 
-			color: #666;
+			color: var(--site-text-muted);
 			transition: color 0.2s;
 			text-transform: uppercase; 
 			letter-spacing: 1px;
 			
 			&:hover, &.active { color: var(--site-accent); }
+		}
+
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.site-header,
+		.desktop-header .header-logo-img-large {
+			transition: none;
 		}
 	}
 
@@ -479,7 +556,7 @@ const organizationData = {
 		font-family: var(--font-title); 
 		font-size: 1.2rem; 
 		letter-spacing: 4px;
-		color: rgba(255, 255, 255, 0.8); 
+		color: var(--site-text-soft);
 		margin-bottom: 2rem; 
 		text-transform: uppercase;
 	}
@@ -494,7 +571,7 @@ const organizationData = {
 			color: var(--site-accent); 
 			transition: color 0.3s ease, transform 0.2s ease;
 			&:hover { 
-				color: #ffffff; 
+				color: var(--site-text);
 				transform: translateY(-3px); 
 			}
 		}
@@ -504,7 +581,7 @@ const organizationData = {
 		margin-bottom: 3rem;
 		
 		a, .separator {
-			color: rgba(255, 255, 255, 0.4); 
+			color: var(--site-text-subtle);
 			text-decoration: none; 
 			font-size: 0.8rem;
 			font-family: var(--font-title); 
@@ -516,14 +593,14 @@ const organizationData = {
 	}
 	
 	.footer-bottom {
-		border-top: 1px solid rgba(255, 255, 255, 0.05);
+		border-top: 1px solid var(--site-border-subtle);
 		padding-top: 2rem; 
 		width: 100%;
 		max-width: $max-width-site; 
 		margin: 0 auto;
 		
 		p {
-			color: rgba(255, 255, 255, 0.3); 
+			color: var(--site-text-faint);
 			font-size: 0.75rem; 
 			font-family: var(--font-title);
 			margin: 0;
@@ -572,7 +649,7 @@ const organizationData = {
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 3rem;
-		border-bottom: 1px solid rgba(255,255,255,0.1);
+		border-bottom: 1px solid var(--site-border);
 		padding-bottom: 1rem;
 
 		.drawer-logo { width: 12rem; }

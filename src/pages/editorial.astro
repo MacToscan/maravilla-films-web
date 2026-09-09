@@ -78,7 +78,7 @@ import Layout from '../layouts/Layout.astro';
 	.page-title {
 		font-family: var(--font-title);
 		font-size: 3rem;
-		color: #ffffff;
+		color: var(--site-text);
 		letter-spacing: 12px;
 		margin: 0 0 1.5rem 0;
 		font-weight: 300;
@@ -92,7 +92,7 @@ import Layout from '../layouts/Layout.astro';
 	.status-badge {
 		font-family: var(--font-title);
 		background-color: var(--site-accent);
-		color: #ffffff;
+		color: var(--site-text);
 		padding: 0.5rem 1.5rem;
 		border-radius: 2px;
 		font-size: 0.85rem;
@@ -104,7 +104,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.description {
 		font-family: var(--font-body);
-		color: rgba(255, 255, 255, 0.7);
+		color: var(--site-text-muted);
 		font-size: 1.1rem;
 		line-height: 1.7;
 		margin-bottom: 3.5rem;
@@ -112,8 +112,8 @@ import Layout from '../layouts/Layout.astro';
 
 	.btn-back {
 		font-family: var(--font-title);
-		color: #ffffff;
-		border: 1px solid rgba(255, 255, 255, 0.3);
+		color: var(--site-text);
+		border: 1px solid var(--site-border-strong);
 		padding: 0.8rem 2.5rem;
 		font-size: 0.85rem;
 		font-weight: 600;
@@ -122,9 +122,9 @@ import Layout from '../layouts/Layout.astro';
 		background: transparent;
 
 		&:hover {
-			background-color: #ffffff;
+			background-color: var(--site-text);
 			color: var(--site-bg);
-			border-color: #ffffff;
+			border-color: var(--site-text);
 		}
 	}
 

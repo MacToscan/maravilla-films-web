@@ -257,7 +257,7 @@ const prensa = [
 		border: 2px solid rgba(255,255,255,0.9);
 		border-radius: 50%;
 		background: rgba(0,0,0,0.52);
-		color: #fff;
+		color: var(--site-text);
 		display: grid;
 		place-items: center;
 		cursor: pointer;
@@ -299,22 +299,21 @@ const prensa = [
 		@media (min-width: 768px) 
 		{ max-width: 380px; } 
 		@media (min-width: 1200px) { max-width: 450px; } }
-	.release-status { font-family: var(--font-title); color: #ffffff; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin: 0; padding-left: 0; @media (min-width: 768px) { font-size: 1rem; padding-left: 1.5rem; } }
+	.release-status { font-family: var(--font-title); color: var(--site-text); font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin: 0; padding-left: 0; @media (min-width: 768px) { font-size: 1rem; padding-left: 1.5rem; } }
 
 	.action-group { display: flex; gap: 0.8rem; justify-content: center; align-items: center; }
 	
 	.btn {
-		display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 3px; border: none; font-family: var(--font-title); font-weight: 700; letter-spacing: 1px; cursor: pointer; white-space: nowrap; transition: background-color 0.3s, transform 0.2s;
-		padding: 0.6rem 1.2rem !important; font-size: 0.75rem !important; background-color: var(--site-accent); color: #ffffff;
+		display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: var(--button-min-height); border-radius: var(--button-radius); border: 1px solid transparent; font-family: var(--font-title); font-weight: 700; letter-spacing: 1px; cursor: pointer; white-space: nowrap; transition: filter 0.3s, transform 0.2s;
+		padding: var(--button-padding) !important; font-size: 0.8rem !important; background-color: var(--site-accent); color: var(--site-text);
 		&:hover { filter: brightness(1.1); transform: translateY(-2px); }
-		@media (min-width: 768px) { padding: 0.8rem 1.8rem !important; font-size: 0.85rem !important; }
 	}
 
 	.hidden { display: none !important; }
 
 	.video-controls { display: flex; align-items: center; gap: 1.2rem; margin-left: 0.5rem; }
 	.ctrl-icon { 
-		background: none; border: none; color: #ffffff; cursor: pointer; opacity: 0.7; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+		background: none; border: none; color: var(--site-text); cursor: pointer; opacity: 0.7; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
 		&:hover { opacity: 1; transform: scale(1.1); color: var(--site-accent); }
 	}
 
@@ -361,26 +360,26 @@ const prensa = [
 		&.active { background-color: var(--site-accent); } }
 
 	/* SECCIÓN PROYECTOS INTACTA */
-	.projects-section { padding: 4rem 1rem; background-color: var(--test-bg-page); }
+	.projects-section { padding: 4rem 1rem; background-color: var(--site-surface); }
 	.projects-container { max-width: 1400px; margin: 0 auto; }
-	.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 1rem; }
-	.section-title { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: #111; margin: 0; }
+	.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--site-border); padding-bottom: 1rem; }
+	.section-title { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: var(--site-text); margin: 0; }
 	.carousel-controls { display: flex; gap: 0.5rem; }
-	.ctrl-btn { background: none; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #555; transition: all 0.2s; &:hover { background-color: #f0f0f0; border-color: #999; } }
+	.ctrl-btn { background: none; border: 1px solid var(--site-border-strong); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--site-text); transition: all 0.2s; &:hover { background-color: var(--site-accent); border-color: var(--site-accent); } }
 	.projects-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
 	.project-card { width: calc(50% - 0.75rem); max-width: 220px; @media (min-width: 768px) { width: calc(33.333% - 1rem); } @media (min-width: 1024px) { width: calc(16.666% - 1.25rem); } }
 	.poster-img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; margin-bottom: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 	.project-info { text-align: left; }
-	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: #232323; text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
-	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: #262525; margin: 0; font-style: italic; }
+	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: var(--site-text); text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
+	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: var(--site-text-muted); margin: 0; font-style: italic; }
 
 	/* ==========================================
 	   ESTILOS SECCIÓN PRENSA (VISUAL)
 	   ========================================== */
 	.press-section {
 		padding: 5rem 1rem;
-		background-color: var(--test-bg-page); /* Mismo fondo que tus proyectos para que quede integrado */
-		border-top: 1px solid rgba(0,0,0,0.05);
+		background-color: var(--site-surface);
+		border-top: 1px solid var(--site-border-subtle);
 	}
 
 	.press-container {
@@ -463,7 +462,7 @@ const prensa = [
 		font-family: var(--font-title);
 		font-size: 1.1rem;
 		font-weight: 700;
-		color: #ffffff;
+		color: var(--site-text);
 		line-height: 1.3;
 		margin: 0;
 		text-shadow: 0 2px 5px rgba(0,0,0,0.5);

@@ -1,6 +1,11 @@
 ---
 // src/pages/el-ramo.astro
 import Layout from '../layouts/Layout.astro';
+
+const fotosRodaje = Array.from({ length: 18 }, (_, index) => ({
+	src: `/img/el-ramo-rodaje/el-ramo-rodaje-${String(index + 1).padStart(2, '0')}.webp`,
+	alt: `El Ramo — imagen del rodaje ${index + 1}`,
+}));
 ---
 
 <Layout
@@ -75,6 +80,36 @@ import Layout from '../layouts/Layout.astro';
 
 	</section>
 
+	<section class="making-of" aria-labelledby="making-of-title">
+		<div class="making-of-header">
+			<div>
+				<p class="making-of-kicker">DETRÁS DE LAS CÁMARAS</p>
+				<h2 id="making-of-title">ASÍ SE RODÓ EL RAMO</h2>
+			</div>
+
+			<div class="making-of-controls">
+				<button class="making-of-arrow prev" type="button" aria-label="Ver fotografías anteriores">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+				</button>
+				<button class="making-of-arrow next" type="button" aria-label="Ver fotografías siguientes">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+				</button>
+			</div>
+		</div>
+
+		<div class="making-of-track" tabindex="0" aria-label="Galería de fotografías del rodaje de El Ramo">
+			{[false, true].map((isCopy) => (
+				<div class="making-of-set" aria-hidden={isCopy ? 'true' : undefined}>
+					{fotosRodaje.map((foto) => (
+						<figure class="making-of-item">
+							<img src={foto.src} alt={isCopy ? '' : foto.alt} loading="lazy" decoding="async" />
+						</figure>
+					))}
+				</div>
+			))}
+		</div>
+	</section>
+
     <div id="trailer-modal" class="trailer-modal">
 		<div class="modal-content">
 			<button id="btn-close-trailer" class="btn-close-modal" aria-label="Cerrar tráiler">
@@ -116,6 +151,68 @@ import Layout from '../layouts/Layout.astro';
 			modal.addEventListener('click', (e) => {
 				if (e.target === modal) closeModal();
 			});
+		}
+
+		const track = document.querySelector('.making-of-track') as HTMLElement | null;
+		const prevGalleryBtn = document.querySelector('.making-of-arrow.prev');
+		const nextGalleryBtn = document.querySelector('.making-of-arrow.next');
+
+		if (track && prevGalleryBtn && nextGalleryBtn) {
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const baseSpeed = reduceMotion ? 0 : 2.65;
+			let currentSpeed = baseSpeed;
+			let targetSpeed = baseSpeed;
+			let isPaused = false;
+			let isAccelerating = false;
+
+			const animateGallery = () => {
+				currentSpeed += (targetSpeed - currentSpeed) * 0.08;
+				track.scrollLeft += currentSpeed;
+
+				const halfWidth = track.scrollWidth / 2;
+				if (track.scrollLeft >= halfWidth) track.scrollLeft -= halfWidth;
+				if (track.scrollLeft <= 0 && currentSpeed < 0) track.scrollLeft += halfWidth;
+
+				requestAnimationFrame(animateGallery);
+			};
+
+			const setPaused = (paused: boolean) => {
+				isPaused = paused;
+				if (!isAccelerating) targetSpeed = paused ? 0 : baseSpeed;
+			};
+
+			const accelerate = (speed: number) => {
+				isAccelerating = true;
+				targetSpeed = speed;
+			};
+
+			const stopAcceleration = () => {
+				isAccelerating = false;
+				targetSpeed = isPaused ? 0 : baseSpeed;
+			};
+
+			track.addEventListener('mouseenter', () => setPaused(true));
+			track.addEventListener('mouseleave', () => setPaused(false));
+			track.addEventListener('focusin', () => setPaused(true));
+			track.addEventListener('focusout', () => setPaused(false));
+			track.addEventListener('touchstart', () => setPaused(true), { passive: true });
+			track.addEventListener('touchend', () => setPaused(false));
+			track.addEventListener('touchcancel', () => setPaused(false));
+
+			const connectArrow = (button: Element, speed: number) => {
+				button.addEventListener('pointerdown', (event) => {
+					event.preventDefault();
+					accelerate(speed);
+				});
+				button.addEventListener('pointerup', stopAcceleration);
+				button.addEventListener('pointerleave', stopAcceleration);
+				button.addEventListener('pointercancel', stopAcceleration);
+				button.addEventListener('contextmenu', (event) => event.preventDefault());
+			};
+
+			connectArrow(prevGalleryBtn, -8);
+			connectArrow(nextGalleryBtn, 8);
+			requestAnimationFrame(animateGallery);
 		}
 	});
 </script>
@@ -170,6 +267,123 @@ import Layout from '../layouts/Layout.astro';
 		z-index: 2;
 	}
 
+	.making-of {
+		width: 100%;
+		padding: 4.5rem 0;
+		background: var(--site-surface-deep);
+		overflow: hidden;
+	}
+
+	.making-of-header {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		max-width: 1200px;
+		margin: 0 auto 2rem;
+		padding: 0 1.25rem;
+
+		h2 {
+			margin: 0;
+			font-family: var(--font-title);
+			font-size: clamp(1.45rem, 7vw, 2.5rem);
+			letter-spacing: 0.08em;
+			color: var(--site-text);
+		}
+	}
+
+	.making-of-kicker {
+		margin: 0 0 0.55rem;
+		font-family: var(--font-title);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.24em;
+		color: var(--site-accent);
+	}
+
+	.making-of-controls {
+		display: flex;
+		flex-shrink: 0;
+		gap: 0.65rem;
+	}
+
+	.making-of-arrow {
+		display: grid;
+		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		padding: 0;
+		border: 1px solid var(--site-border-strong);
+		border-radius: 50%;
+		background: transparent;
+		color: var(--site-text);
+		cursor: pointer;
+		touch-action: none;
+		transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+
+		svg { width: 1.3rem; fill: none; stroke: currentColor; stroke-width: 2; }
+		&:hover { background: var(--site-accent); border-color: var(--site-accent); }
+		&:active { transform: scale(0.94); }
+		&:focus-visible { outline: 3px solid var(--site-accent); outline-offset: 3px; }
+	}
+
+	.making-of-track {
+		display: flex;
+		width: 100%;
+		overflow-x: auto;
+		scrollbar-width: none;
+		overscroll-behavior-inline: contain;
+		-webkit-overflow-scrolling: touch;
+
+		&::-webkit-scrollbar { display: none; }
+		&:focus-visible { outline: 2px solid var(--site-accent); outline-offset: -2px; }
+	}
+
+	.making-of-set {
+		display: flex;
+		gap: 0.85rem;
+		padding-right: 0.85rem;
+	}
+
+	.making-of-item {
+		width: 78vw;
+		max-width: 320px;
+		aspect-ratio: 4 / 3;
+		margin: 0;
+		flex-shrink: 0;
+		overflow: hidden;
+		border-radius: 4px;
+		background: var(--site-surface-raised);
+
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.45s ease;
+		}
+
+		&:hover img { transform: scale(1.04); }
+	}
+
+	@media (min-width: 768px) {
+		.making-of { padding: 6rem 0; }
+		.making-of-header {
+			flex-direction: row;
+			align-items: flex-end;
+			justify-content: space-between;
+			gap: 1.5rem;
+		}
+		.making-of-arrow { width: 2.75rem; height: 2.75rem; }
+		.making-of-header { margin-bottom: 2.75rem; padding: 0 2rem; }
+		.making-of-set { gap: 1.25rem; padding-right: 1.25rem; }
+		.making-of-item { width: 360px; max-width: none; }
+	}
+
+	@media (min-width: 1024px) {
+		.making-of-item { width: 430px; }
+	}
+
 	.hero-content {
 		position: relative;
 		z-index: 3;
@@ -186,7 +400,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.movie-title {
 		font-family: var(--font-title);
-		color: #ffffff;
+		color: var(--site-text);
 		font-size: 3rem;
 		letter-spacing: 15px;
 		text-transform: uppercase;
@@ -206,21 +420,24 @@ import Layout from '../layouts/Layout.astro';
 		bottom: 2rem;
 		right: 2rem;
 		background-color: var(--site-accent); /* Cogerá tu color rojo de Canbuyon o verde de Cumbre Serena */
-		color: #ffffff;
+		color: var(--site-text);
+		min-height: var(--button-min-height);
 		font-family: var(--font-title);
+		font-size: 0.8rem;
 		font-weight: 700;
 		letter-spacing: 1px;
-		border: none;
-		padding: 0.8rem 1.5rem;
+		border: 1px solid transparent;
+		border-radius: var(--button-radius);
+		padding: var(--button-padding);
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 		cursor: pointer;
-		transition: transform 0.2s, filter 0.3s;
+		transition: filter 0.3s, transform 0.2s;
 
 		&:hover {
 			filter: brightness(1.1);
-			transform: scale(1.05);
+			transform: translateY(-2px);
 		}
 
 		@media (min-width: 1024px) {
@@ -244,7 +461,7 @@ import Layout from '../layouts/Layout.astro';
 
 	h2 {
 		font-family: var(--font-title);
-		color: #ffffff;
+		color: var(--site-text);
 		font-size: 1.5rem;
 		letter-spacing: 2px;
 		margin-top: 0;
@@ -253,8 +470,8 @@ import Layout from '../layouts/Layout.astro';
 
 	/* --- PANEL IZQUIERDO --- */
 	.panel-left {
-		background-color: #6a6a6a; /* Gris medio calcado al de la referencia */
-		color: #ffffff;
+		background-color: var(--site-surface-raised);
+		color: var(--site-text);
 		padding: 3rem 1.5rem;
 		display: flex;
 		justify-content: center;
@@ -291,17 +508,17 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.synopsis-text p {
-		font-family: var(--font-title); /* A contracorriente usa palo seco para la sinopsis */
+		font-family: var(--font-body);
 		font-size: 1rem;
-		line-height: 1.7;
+		line-height: 1.75;
 		margin-bottom: 1.2rem;
-		color: rgba(255, 255, 255, 0.95);
+		color: var(--site-text-strong);
 	}
 
 	/* --- PANEL DERECHO --- */
 	.panel-right {
-		background-color: #2b2b2b; /* Gris oscuro / Negro */
-		color: #ffffff;
+		background-color: var(--site-surface-deep);
+		color: var(--site-text);
 		padding: 3rem 1.5rem;
 		display: flex;
 		justify-content: center;
@@ -335,13 +552,13 @@ import Layout from '../layouts/Layout.astro';
 		font-family: var(--font-title);
 		font-weight: 700;
 		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.9);
+		color: var(--site-text-strong);
 	}
 
 	.info-value {
-		font-family: var(--font-title);
+		font-family: var(--font-body);
 		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.8);
+		color: var(--site-text-soft);
 		line-height: 1.5;
 	}
 
@@ -372,7 +589,7 @@ import Layout from '../layouts/Layout.astro';
 		width: 90%;
 		max-width: 1000px;
 		aspect-ratio: 16 / 9;
-		background-color: #000;
+		background-color: var(--site-bg);
 		box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 	}
 
@@ -388,7 +605,7 @@ import Layout from '../layouts/Layout.astro';
 		right: 0;
 		background: none;
 		border: none;
-		color: #fff;
+		color: var(--site-text);
 		cursor: pointer;
 		opacity: 0.7;
 		transition: opacity 0.2s, transform 0.2s;

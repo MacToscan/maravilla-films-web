@@ -182,7 +182,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.movie-title {
 		font-family: var(--font-title);
-		color: #ffffff;
+		color: var(--site-text);
 		font-size: 3rem;
 		letter-spacing: 15px;
 		text-transform: uppercase;
@@ -202,7 +202,7 @@ import Layout from '../layouts/Layout.astro';
 		bottom: 2rem;
 		right: 2rem;
 		background-color: var(--site-accent); /* Cogerá tu color rojo de Canbuyon o verde de Cumbre Serena */
-		color: #ffffff;
+		color: var(--site-text);
 		font-family: var(--font-title);
 		font-weight: 700;
 		letter-spacing: 1px;
@@ -240,7 +240,7 @@ import Layout from '../layouts/Layout.astro';
 
 	h2 {
 		font-family: var(--font-title);
-		color: #ffffff;
+		color: var(--site-text);
 		font-size: 1.5rem;
 		letter-spacing: 2px;
 		margin-top: 0;
@@ -249,8 +249,8 @@ import Layout from '../layouts/Layout.astro';
 
 	/* --- PANEL IZQUIERDO --- */
 	.panel-left {
-		background-color: #6a6a6a; /* Gris medio calcado al de la referencia */
-		color: #ffffff;
+		background-color: var(--site-surface-raised);
+		color: var(--site-text);
 		padding: 3rem 1.5rem;
 		display: flex;
 		justify-content: center;
@@ -291,13 +291,13 @@ import Layout from '../layouts/Layout.astro';
 		font-size: 1rem;
 		line-height: 1.7;
 		margin-bottom: 1.2rem;
-		color: rgba(255, 255, 255, 0.95);
+		color: var(--site-text-strong);
 	}
 
 	/* --- PANEL DERECHO --- */
 	.panel-right {
-		background-color: #2b2b2b; /* Gris oscuro / Negro */
-		color: #ffffff;
+		background-color: var(--site-surface-deep);
+		color: var(--site-text);
 		padding: 3rem 1.5rem;
 		display: flex;
 		justify-content: center;
@@ -331,13 +331,13 @@ import Layout from '../layouts/Layout.astro';
 		font-family: var(--font-title);
 		font-weight: 700;
 		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.9);
+		color: var(--site-text-strong);
 	}
 
 	.info-value {
 		font-family: var(--font-title);
 		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.8);
+		color: var(--site-text-soft);
 		line-height: 1.5;
 	}
 
@@ -368,7 +368,7 @@ import Layout from '../layouts/Layout.astro';
 		width: 90%;
 		max-width: 1000px;
 		aspect-ratio: 16 / 9;
-		background-color: #000;
+		background-color: var(--site-bg);
 		box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 	}
 
@@ -384,7 +384,7 @@ import Layout from '../layouts/Layout.astro';
 		right: 0;
 		background: none;
 		border: none;
-		color: #fff;
+		color: var(--site-text);
 		cursor: pointer;
 		opacity: 0.7;
 		transition: opacity 0.2s, transform 0.2s;

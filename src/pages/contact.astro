@@ -114,7 +114,7 @@ import Layout from '../layouts/Layout.astro';
 	.hero-title {
 		font-family: var(--font-title); 
 		font-size: 2.5rem;
-		color: #ffffff;
+		color: var(--site-text);
 		line-height: 1.2;
 		margin-bottom: 1rem;
 		letter-spacing: 2px;
@@ -125,14 +125,14 @@ import Layout from '../layouts/Layout.astro';
 	.hero-subtitle {
 		font-family: var(--font-title);
 		font-size: 1.1rem;
-		color: rgba(255, 255, 255, 0.7);
+		color: var(--site-text-muted);
 	}
 
 	/* ==========================================
 	   SECCIÓN FORMULARIO E INFO (BLANCO)
 	   ========================================== */
 	.form-section {
-		background-color: var(--test-bg-page);
+		background-color: var(--site-bg-light);
 		padding: 4rem 1.5rem 8rem;
 	}
 
@@ -165,10 +165,10 @@ import Layout from '../layouts/Layout.astro';
 		font-family: var(--font-title);
 		font-size: 0.78rem;
 		line-height: 1.65;
-		color: #3f3f3f;
+		color: var(--site-ink-soft);
 
 		a {
-			color: #003fc7;
+			color: var(--site-accent);
 			text-decoration: underline;
 			text-underline-offset: 2px;
 		}
@@ -182,7 +182,7 @@ import Layout from '../layouts/Layout.astro';
 		gap: 1.5rem;
 		margin-bottom: 4rem;
 		padding-bottom: 3rem;
-		border-bottom: 1px solid rgba(0,0,0,0.1);
+		border-bottom: 1px solid var(--site-border-dark);
 
 		@media (min-width: 768px) {
 			flex-direction: row;
@@ -198,7 +198,7 @@ import Layout from '../layouts/Layout.astro';
 		font-family: var(--font-title);
 		font-size: 1rem;
 		font-weight: 600;
-		color: #333;
+		color: var(--site-ink-soft);
 		transition: color 0.3s;
 
 		&:hover {
@@ -239,11 +239,11 @@ import Layout from '../layouts/Layout.astro';
 			width: 100%;
 			background: transparent;
 			border: none;
-			border-bottom: 1px solid #403f3f;
+			border-bottom: 1px solid var(--site-ink-soft);
 			padding: 0.8rem 0;
 			font-family: var(--font-body); /* Tipografía editorial para escribir */
 			font-size: 1rem;
-			color: #333;
+			color: var(--site-ink-soft);
 			transition: border-color 0.3s;
 			resize: vertical;
 
@@ -253,7 +253,7 @@ import Layout from '../layouts/Layout.astro';
 			}
 
 			&::placeholder {
-				color: #343232;
+				color: var(--site-ink-soft);
 				font-family: var(--font-title); /* Placeholder recto, input con serifas */
 				font-weight: 300;
 			}
@@ -263,7 +263,7 @@ import Layout from '../layouts/Layout.astro';
 	.btn-solid {
 		align-self: center; /* Centra el botón */
 		background-color: var(--site-accent);
-		color: #ffffff;
+		color: var(--site-text);
 		border: none;
 		padding: 1rem 3rem;
 		font-family: var(--font-title);
@@ -277,7 +277,7 @@ import Layout from '../layouts/Layout.astro';
 		margin-top: 1rem;
 
 		&:hover {
-			background-color: #111; /* Cambia a negro elegante al pasar el ratón */
+			background-color: var(--site-ink); /* Cambia a negro elegante al pasar el ratón */
 			transform: translateY(-2px);
 		}
 	}
