@@ -6,11 +6,31 @@ const fotosRodaje = Array.from({ length: 18 }, (_, index) => ({
 	src: `/img/el-ramo-rodaje/el-ramo-rodaje-${String(index + 1).padStart(2, '0')}.webp`,
 	alt: `El Ramo — imagen del rodaje ${index + 1}`,
 }));
+
+const filmStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Movie',
+	name: 'El Ramo',
+	url: 'https://maravillafilms.com/el-ramo',
+	image: 'https://maravillafilms.com/img/tarjeta_elramo.webp',
+	description: 'Cortometraje de drama psicológico producido por Maravilla Films.',
+	genre: 'Drama psicológico',
+	director: { '@type': 'Person', name: 'Ignacio Malagón' },
+	author: { '@type': 'Person', name: 'Luis Ortubia' },
+	actor: ['Merche Montilla', 'Pol Forment', 'Sandra Cendra'].map((name) => ({ '@type': 'Person', name })),
+	productionCompany: { '@id': 'https://maravillafilms.com/#organization' },
+	inLanguage: 'es',
+};
 ---
 
 <Layout
 	title="El Ramo — Cortometraje"
 	description="Descubre El Ramo, un cortometraje de drama psicológico producido por Maravilla Films, con dirección de Ignacio Malagón y guion de Luis Ortubia."
+	socialImage="/img/tarjeta_elramo.webp"
+	socialImageAlt="El Ramo, cortometraje de Maravilla Films"
+	socialImageWidth={1784}
+	socialImageHeight={714}
+	structuredData={filmStructuredData}
 >
 	
 	<section class="movie-hero">

@@ -1,0 +1,350 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const catalogo = [
+	{
+		titulo: 'EL RAMO',
+		formato: 'CORTOMETRAJE',
+		imagen: '/img/tarjeta_elramo.webp',
+		enlace: '/el-ramo',
+	},
+	{
+		titulo: 'BÉLMEZ: LA HISTORIA DE CARNE Y CAL',
+		tituloVisual: 'BÉLMEZ',
+		subtitulo: 'La historia de Carne y Cal',
+		formato: 'LARGOMETRAJE',
+		imagen: '/img/tarjeta_belmez.webp',
+		enlace: null,
+	},
+	{
+		titulo: 'ESTO NO ES HOLLYWOOD',
+		formato: 'LARGOMETRAJE',
+		imagen: '/img/tarjeta_hollywood.webp',
+		enlace: null,
+	},
+	{
+		titulo: 'RAÍCES ANCESTRALES',
+		formato: 'DOCUMENTAL',
+		imagen: '/img/tarjeta_raices.webp',
+		enlace: '/raices-ancestrales',
+	},
+];
+
+const catalogStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: 'Catálogo de Maravilla Films',
+	url: 'https://maravillafilms.com/catalogo',
+	description: 'Cortometrajes, largometrajes y documentales de Maravilla Films.',
+	isPartOf: { '@id': 'https://maravillafilms.com/#website' },
+};
+---
+
+<Layout
+	title="Catálogo"
+	description="Próximas producciones de Maravilla Films: cortometrajes, largometrajes y documentales en circuito de festivales y en desarrollo."
+	socialImage="/img/tarjeta_elramo.webp"
+	socialImageAlt="Catálogo audiovisual de Maravilla Films"
+	socialImageWidth={1784}
+	socialImageHeight={714}
+	structuredData={catalogStructuredData}
+>
+	<section class="catalog-hero" aria-labelledby="catalog-title">
+		<video
+			id="catalog-video"
+			class="catalog-video"
+			muted
+			loop
+			playsinline
+			preload="metadata"
+			poster="/img/cartel_el_ramo.webp"
+			aria-hidden="true"
+			tabindex="-1"
+		>
+			<source src="/video/el_ramo.mp4" type="video/mp4" />
+		</video>
+		<div class="catalog-overlay"></div>
+		<div class="catalog-hero-content">
+			<p class="catalog-kicker">MARAVILLA FILMS</p>
+			<h1 id="catalog-title">CATÁLOGO</h1>
+		</div>
+	</section>
+
+	<section class="upcoming" aria-labelledby="upcoming-title">
+		<div class="upcoming-container">
+			<header class="section-heading">
+				<p>HISTORIAS EN CAMINO</p>
+				<h2 id="upcoming-title">PRÓXIMAMENTE</h2>
+			</header>
+
+			<div class="catalog-grid">
+				{catalogo.map((proyecto, index) => {
+					const cardContent = (
+						<>
+							{proyecto.imagen ? (
+								<img src={proyecto.imagen} alt={`Portada de ${proyecto.titulo}`} loading={index === 0 ? 'eager' : 'lazy'} />
+							) : (
+								<div class="placeholder-art" aria-hidden="true">
+									<span>BÉLMEZ</span>
+								</div>
+							)}
+							<div class="card-shade"></div>
+							<div class:list={['card-copy', proyecto.subtitulo && 'has-subtitle']}>
+								<h3>{proyecto.tituloVisual ?? proyecto.titulo}</h3>
+								{proyecto.subtitulo && <span class="card-subtitle">{proyecto.subtitulo}</span>}
+								<p>{proyecto.formato}</p>
+							</div>
+						</>
+					);
+
+					return proyecto.enlace ? (
+						<a class="catalog-card is-linked" href={proyecto.enlace} aria-label={`Ver ${proyecto.titulo}`}>
+							{cardContent}
+						</a>
+					) : (
+						<article class="catalog-card">{cardContent}</article>
+					);
+				})}
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const video = document.getElementById('catalog-video') as HTMLVideoElement | null;
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+		if (video && !reduceMotion.matches) {
+			video.play().catch(() => {});
+		}
+	});
+</script>
+
+<style lang="scss">
+	.catalog-hero {
+		position: relative;
+		display: grid;
+		min-height: clamp(240px, 58vw, 340px);
+		place-items: center;
+		overflow: hidden;
+		background: var(--site-surface-deep) url('/img/cartel_el_ramo.webp') center / cover no-repeat;
+	}
+
+	.catalog-video,
+	.catalog-overlay {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.catalog-video {
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.catalog-overlay {
+		background:
+			linear-gradient(to bottom, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.62)),
+			radial-gradient(circle at center, transparent 10%, rgba(0, 0, 0, 0.42) 100%);
+	}
+
+	.catalog-hero-content {
+		position: relative;
+		z-index: 1;
+		padding: 3rem 1.25rem;
+		text-align: center;
+
+		h1 {
+			margin: 0;
+			color: var(--site-text);
+			font-family: var(--font-title);
+			font-size: clamp(2rem, 10vw, 3.8rem);
+			font-weight: 700;
+			letter-spacing: 0.1em;
+			line-height: 0.95;
+			text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+		}
+	}
+
+	.catalog-kicker {
+		margin: 0 0 0.85rem;
+		color: var(--site-accent);
+		font-family: var(--font-title);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.3em;
+	}
+
+	.upcoming {
+		padding: 4.5rem 1rem 6rem;
+		background: var(--site-surface);
+	}
+
+	.upcoming-container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.section-heading {
+		margin-bottom: 2rem;
+		border-bottom: 1px solid var(--site-border);
+		padding-bottom: 1.25rem;
+
+		p {
+			margin: 0 0 0.45rem;
+			color: var(--site-accent);
+			font-family: var(--font-title);
+			font-size: 0.7rem;
+			font-weight: 700;
+			letter-spacing: 0.24em;
+		}
+
+		h2 {
+			margin: 0;
+			color: var(--site-text);
+			font-family: var(--font-title);
+			font-size: clamp(1.8rem, 8vw, 3.2rem);
+			letter-spacing: 0.06em;
+		}
+	}
+
+	.catalog-grid {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.catalog-card {
+		position: relative;
+		display: block;
+		min-width: 0;
+		aspect-ratio: 2.2 / 1;
+		overflow: hidden;
+		border: 1px solid var(--site-border);
+		border-radius: 4px;
+		background: var(--site-surface-raised);
+		isolation: isolate;
+
+		img,
+		.placeholder-art,
+		.card-shade {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		img {
+			object-fit: cover;
+			transition: transform 0.6s ease, filter 0.6s ease;
+		}
+	}
+
+	.placeholder-art {
+		display: grid;
+		place-items: center;
+		background:
+			radial-gradient(circle at 72% 28%, rgba(0, 80, 251, 0.25), transparent 30%),
+			linear-gradient(135deg, #1c1d21, var(--site-surface-deep));
+
+		span {
+			color: var(--site-text-subtle);
+			font-family: var(--font-title);
+			font-size: clamp(2.2rem, 12vw, 5rem);
+			font-weight: 700;
+			letter-spacing: 0.08em;
+		}
+	}
+
+	.card-shade {
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.08) 70%);
+	}
+
+	.card-copy {
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding: 1.15rem;
+
+		p {
+			margin: 0.4rem 0 0;
+			color: var(--site-text-muted);
+			font-family: var(--font-title);
+			font-size: 0.62rem;
+			font-weight: 700;
+			letter-spacing: 0.16em;
+		}
+
+		h3 {
+			margin: 0;
+			color: var(--site-text);
+			font-family: var(--font-title);
+			font-size: clamp(1.05rem, 5vw, 1.65rem);
+			line-height: 1.05;
+		}
+
+		&.has-subtitle {
+			max-width: 78%;
+			padding: 1rem 1.15rem;
+
+			h3 {
+				font-size: clamp(1.2rem, 5vw, 1.8rem);
+				letter-spacing: 0.08em;
+			}
+
+			p {
+				margin-top: 0.5rem;
+			}
+		}
+	}
+
+	.card-subtitle {
+		display: block;
+		margin-top: 0.18rem;
+		color: rgba(245, 245, 245, 0.88);
+		font-family: var(--font-body);
+		font-size: clamp(0.72rem, 2.5vw, 0.92rem);
+		font-style: italic;
+		line-height: 1.2;
+	}
+
+	.is-linked {
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: 3px solid var(--site-accent);
+			outline-offset: 3px;
+		}
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.is-linked:hover img {
+			transform: scale(1.04);
+			filter: brightness(1.08);
+		}
+	}
+
+	@media (min-width: 768px) {
+		.catalog-hero { min-height: 340px; }
+		.upcoming { padding: 6rem 2rem 8rem; }
+		.section-heading { margin-bottom: 2.75rem; }
+		.catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+		.card-copy { padding: 1.25rem; }
+	}
+
+	@media (min-width: 1024px) {
+		.catalog-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	}
+
+	@media (min-width: 1440px) {
+		.catalog-hero { min-height: 380px; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.catalog-video { display: none; }
+		.catalog-card img { transition: none; }
+	}
+</style>

@@ -4,21 +4,24 @@
 		<loc>https://maravillafilms.com/</loc>
 	</url>
 	<url>
-		<loc>https://maravillafilms.com/about</loc>
+		<loc>https://maravillafilms.com/about/</loc>
 	</url>
 	<url>
-		<loc>https://maravillafilms.com/contact</loc>
+		<loc>https://maravillafilms.com/catalogo/</loc>
 	</url>
 	<url>
-		<loc>https://maravillafilms.com/privacidad</loc>
+		<loc>https://maravillafilms.com/contact/</loc>
 	</url>
 	<url>
-		<loc>https://maravillafilms.com/cookies</loc>
+		<loc>https://maravillafilms.com/privacidad/</loc>
 	</url>
 	<url>
-		<loc>https://maravillafilms.com/el-ramo</loc>
+		<loc>https://maravillafilms.com/cookies/</loc>
 	</url>
 	<url>
-		<loc>https://maravillafilms.com/raices-ancestrales</loc>
+		<loc>https://maravillafilms.com/el-ramo/</loc>
+	</url>
+	<url>
+		<loc>https://maravillafilms.com/raices-ancestrales/</loc>
 	</url>
 </urlset>

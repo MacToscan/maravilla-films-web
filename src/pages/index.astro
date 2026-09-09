@@ -29,7 +29,7 @@ const heroSlides = [
 		logo: "/img/hollywood_logo.webp", /* <-- Cambia por el logo de tu tercer proyeto */
 		video: "/video/hollywood.mp4",
 		poster: "/img/cartel_hollywood.webp", /* <-- Pon la portada del tercer tráiler */
-		enlace: "/esto-no-es-hollywood" /* <-- Cambia por el enlace a tu tercer proyecto */
+		enlace: "/catalogo"
 	},
 ];
 
@@ -37,10 +37,10 @@ const heroSlides = [
 // 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
 const proyectos = [
 
-	{ titulo: "EL RAMO", estado: "Circuito de festivales", imagen: "/img/el_ramo.webp", enlace: "/el-ramo" }, 
-	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/carneycal_portada.jpeg", enlace: "#" },
+	{ titulo: "EL RAMO", estado: "Circuito de festivales", imagen: "/img/el_ramo_sin_borde.webp", enlace: "/el-ramo" },
+	{ titulo: "CARNE Y CAL", estado: "Preproducción", imagen: "/img/carneycal_portada_opt.webp", enlace: null },
 	{ titulo: "RAÍCES ANCESTRALES", estado: "En desarrollo", imagen: "/img/raices_ancestrales_portada.webp", enlace: "/raices-ancestrales" },
-	{ titulo: "ESTO NO ES HOLLYWOOD", estado: "En desarrollo", imagen: "/img/hollywood_portada.webp", enlace: "#" },
+	{ titulo: "ESTO NO ES HOLLYWOOD", estado: "En desarrollo", imagen: "/img/hollywood_portada.webp", enlace: null },
 	
 ];
 
@@ -132,7 +132,10 @@ const prensa = [
 	<section class="projects-section" id="proyectos">
 		<div class="projects-container">
 			<div class="section-header">
-				<h2 class="section-title">PROYECTOS</h2>
+				<div>
+					<p class="section-kicker">MARAVILLA FILMS</p>
+					<h2 class="section-title">NUESTRAS PRODUCCIONES</h2>
+				</div>
 				<div class="carousel-controls">
 					<button class="ctrl-btn prev" aria-label="Anterior"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 					<button class="ctrl-btn next" aria-label="Siguiente"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
@@ -141,15 +144,25 @@ const prensa = [
 			<div class="projects-grid">
 				{proyectos.map((proyecto) => (
 					<article class="project-card">
-						<a href={proyecto.enlace}>
-							<img src={proyecto.imagen} alt={`Póster de ${proyecto.titulo}`} class="poster-img" />
-						</a>
+						{proyecto.enlace ? (
+							<a href={proyecto.enlace} class="poster-link" aria-label={`Descubrir ${proyecto.titulo}`}>
+								<img src={proyecto.imagen} alt={`Póster de ${proyecto.titulo}`} class="poster-img" />
+								<span class="discover-label">DESCUBRIR</span>
+							</a>
+						) : (
+							<div class="poster-link is-static">
+								<img src={proyecto.imagen} alt={`Póster de ${proyecto.titulo}`} class="poster-img" />
+							</div>
+						)}
 						<div class="project-info">
 							<h3 class="project-title">{proyecto.titulo}</h3>
 							<p class="project-status">{proyecto.estado}</p>
 						</div>
 					</article>
 				))}
+			</div>
+			<div class="catalog-cta-wrap">
+				<a href="/catalogo" class="catalog-cta">VER CATÁLOGO</a>
 			</div>
 		</div>
 	</section>
@@ -184,6 +197,24 @@ const prensa = [
 </Layout>
 
 <script src="../scripts/slider.js"></script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const grid = document.querySelector('.projects-grid') as HTMLElement | null;
+		const previous = document.querySelector('.projects-section .ctrl-btn.prev');
+		const next = document.querySelector('.projects-section .ctrl-btn.next');
+
+		const move = (direction: number) => {
+			const card = grid?.querySelector('.project-card') as HTMLElement | null;
+			if (!grid || !card) return;
+			const gap = Number.parseFloat(getComputedStyle(grid).columnGap) || 0;
+			grid.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: 'smooth' });
+		};
+
+		previous?.addEventListener('click', () => move(-1));
+		next?.addEventListener('click', () => move(1));
+	});
+</script>
 
 <style lang="scss">
 	/* ==========================================
@@ -359,19 +390,40 @@ const prensa = [
 		cursor: pointer; 
 		&.active { background-color: var(--site-accent); } }
 
-	/* SECCIÓN PROYECTOS INTACTA */
-	.projects-section { padding: 4rem 1rem; background-color: var(--site-surface); }
-	.projects-container { max-width: 1400px; margin: 0 auto; }
-	.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--site-border); padding-bottom: 1rem; }
-	.section-title { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: var(--site-text); margin: 0; }
+	/* SECCIÓN NUESTRAS PRODUCCIONES */
+	.projects-section { padding: 4.5rem 1rem; background-color: var(--site-surface); }
+	.projects-container { max-width: 1320px; margin: 0 auto; }
+	.section-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--site-border); padding-bottom: 1.25rem; }
+	.section-kicker { margin: 0 0 0.45rem; color: var(--site-accent); font-family: var(--font-title); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.25em; }
+	.section-title { font-family: var(--font-title); font-size: clamp(1.35rem, 5vw, 2rem); font-weight: 700; color: var(--site-text); margin: 0; letter-spacing: 0.04em; }
 	.carousel-controls { display: flex; gap: 0.5rem; }
 	.ctrl-btn { background: none; border: 1px solid var(--site-border-strong); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--site-text); transition: all 0.2s; &:hover { background-color: var(--site-accent); border-color: var(--site-accent); } }
-	.projects-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-	.project-card { width: calc(50% - 0.75rem); max-width: 220px; @media (min-width: 768px) { width: calc(33.333% - 1rem); } @media (min-width: 1024px) { width: calc(16.666% - 1.25rem); } }
-	.poster-img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; margin-bottom: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+	.projects-grid { display: grid; grid-auto-flow: column; grid-auto-columns: min(78vw, 290px); gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0.15rem 0.15rem 1rem; &::-webkit-scrollbar { display: none; } }
+	.project-card { min-width: 0; scroll-snap-align: start; }
+	.poster-link { position: relative; display: block; aspect-ratio: 7 / 10; overflow: hidden; border-radius: 5px; background: var(--site-bg); box-shadow: 0 12px 30px rgba(0,0,0,0.28); }
+	.poster-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.45s ease, filter 0.45s ease; }
+	.discover-label { position: absolute; left: 50%; bottom: 1.25rem; transform: translate(-50%, 8px); border: 1px solid rgba(255,255,255,0.7); padding: 0.65rem 1rem; color: var(--site-text); background: rgba(0,0,0,0.58); font-family: var(--font-title); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; }
+	.poster-link:not(.is-static):hover .poster-img { transform: scale(1.025); filter: brightness(0.72); }
+	.poster-link:not(.is-static):hover .discover-label { opacity: 1; transform: translate(-50%, 0); }
 	.project-info { text-align: left; }
-	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: var(--site-text); text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
-	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: var(--site-text-muted); margin: 0; font-style: italic; }
+	.project-title { font-family: var(--font-title); font-size: 0.95rem; font-weight: 700; color: var(--site-text); text-transform: uppercase; margin: 1rem 0 0.25rem; line-height: 1.2; }
+	.project-status { font-family: var(--font-body); font-size: 0.82rem; color: var(--site-text-muted); margin: 0; }
+	.catalog-cta-wrap { display: flex; justify-content: center; margin-top: 2.25rem; }
+	.catalog-cta { display: inline-flex; align-items: center; justify-content: center; min-height: var(--button-min-height); border: 1px solid var(--site-accent); border-radius: var(--button-radius); padding: var(--button-padding); color: var(--site-text); background: var(--site-accent); font-family: var(--font-title); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.13em; transition: filter 0.25s ease, transform 0.25s ease; &:hover { filter: brightness(1.1); transform: translateY(-2px); } }
+
+	@media (min-width: 768px) {
+		.projects-section { padding: 5.5rem 2rem; }
+		.projects-grid { grid-auto-columns: calc((100% - 2.5rem) / 3); }
+	}
+
+	@media (min-width: 1400px) {
+		.projects-grid { grid-auto-columns: calc((100% - 3.75rem) / 4); }
+		.carousel-controls { display: none; }
+	}
+
+	@media (hover: none) {
+		.discover-label { display: none; }
+	}
 
 	/* ==========================================
 	   ESTILOS SECCIÓN PRENSA (VISUAL)

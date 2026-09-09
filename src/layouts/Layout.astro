@@ -5,21 +5,37 @@ interface Props {
 	description: string;
 	titlePosition?: 'before' | 'after';
 	noindex?: boolean;
+	socialImage?: string;
+	socialImageAlt?: string;
+	socialImageWidth?: number;
+	socialImageHeight?: number;
+	structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, titlePosition = 'after', noindex = false } = Astro.props;
+const {
+	title,
+	description,
+	titlePosition = 'after',
+	noindex = false,
+	socialImage = '/img/maravilla_whatsapp.webp',
+	socialImageAlt = 'Maravilla Films',
+	socialImageWidth = 1200,
+	socialImageHeight = 630,
+	structuredData,
+} = Astro.props;
 const siteName = 'Maravilla Films';
 const fullTitle = titlePosition === 'before' ? `${siteName} | ${title}` : `${title} | ${siteName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maravillafilms.com');
-const socialImageURL = new URL('/img/maravilla_whatsapp.webp', Astro.site ?? 'https://maravillafilms.com');
+const socialImageURL = new URL(socialImage, Astro.site ?? 'https://maravillafilms.com');
 const isHomePage = Astro.url.pathname === '/';
 const organizationData = {
 	'@context': 'https://schema.org',
 	'@type': 'Organization',
 	'@id': 'https://maravillafilms.com/#organization',
 	name: siteName,
+	legalName: 'Cumbre Serena S.L.',
 	url: 'https://maravillafilms.com/',
-	logo: 'https://maravillafilms.com/img/logo_maravilla.png',
+	logo: 'https://maravillafilms.com/img/logo_maravilla_opt.webp',
 	image: 'https://maravillafilms.com/img/maravilla_whatsapp.webp',
 	description: 'Productora cinematográfica independiente dedicada al desarrollo y producción de cortometrajes, documentales y proyectos audiovisuales.',
 	email: 'producciones@maravillafilms.com',
@@ -29,6 +45,7 @@ const organizationData = {
 		streetAddress: 'Parc Audiovisual de Catalunya, 11',
 		addressLocality: 'Terrassa',
 		addressRegion: 'Barcelona',
+		postalCode: '08225',
 		addressCountry: 'ES',
 	},
 	sameAs: [
@@ -37,6 +54,18 @@ const organizationData = {
 		'https://www.linkedin.com/in/maravillafilms-56523a3b6/',
 	],
 };
+const websiteData = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	'@id': 'https://maravillafilms.com/#website',
+	url: 'https://maravillafilms.com/',
+	name: siteName,
+	inLanguage: 'es',
+	publisher: { '@id': 'https://maravillafilms.com/#organization' },
+};
+const pageStructuredData = structuredData
+	? (Array.isArray(structuredData) ? structuredData : [structuredData])
+	: [];
 ---
 
 <!doctype html>
@@ -49,7 +78,7 @@ const organizationData = {
 		<title>{fullTitle}</title>
 		<link rel="canonical" href={canonicalURL} />
 		
-		<link rel="icon" type="image/png" href="/img/favicon.png" />
+		<link rel="icon" type="image/png" href="/img/favicon-96.png" />
 		
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
@@ -59,16 +88,19 @@ const organizationData = {
 		<meta property="og:locale" content="es_ES" />
 		
 		<meta property="og:image" content={socialImageURL} />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="Maravilla Films" />
+		<meta property="og:image:width" content={String(socialImageWidth)} />
+		<meta property="og:image:height" content={String(socialImageHeight)} />
+		<meta property="og:image:alt" content={socialImageAlt} />
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageURL} />
 
-		{isHomePage && <script type="application/ld+json" set:html={JSON.stringify(organizationData)} />}
+		{isHomePage && <script type="application/ld+json" set:html={JSON.stringify([organizationData, websiteData])} />}
+		{pageStructuredData.map((data) => (
+			<script type="application/ld+json" set:html={JSON.stringify(data)} />
+		))}
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,7 +114,7 @@ const organizationData = {
 		<!-- MÓVIL: solo dejamos el tag <img> -->
 		<div class="mobile-header">
 			<a href="/" class="logo-link">
-				<img src="/img/logo_maravilla_large.png" alt="Logo Maravilla Films" class="header-logo-img" />
+				<img src="/img/logo_maravilla_large_opt.webp" alt="Logo Maravilla Films" class="header-logo-img" />
 			</a>
 			<div class="mobile-actions">
 				<button aria-label="Menú" id="btn-menu">
@@ -95,7 +127,7 @@ const organizationData = {
 		<div class="desktop-header">
 			<div class="logo-wrapper">
 				<a href="/" class="logo-link-large">
-					<img src="/img/logo_maravilla_large.png" alt="Logo Maravilla Films" class="header-logo-img-large" />
+					<img src="/img/logo_maravilla_large_opt.webp" alt="Logo Maravilla Films" class="header-logo-img-large" />
 				</a>
 			</div>
 			
@@ -104,7 +136,7 @@ const organizationData = {
 					<ul>
 						<li><a href="/">INICIO</a></li>
 						<li><a href="/about">QUIÉNES SOMOS</a></li>
-						<li><a href="/#proyectos">PROYECTOS</a></li>
+						<li><a href="/catalogo">CATÁLOGO</a></li>
 						<!-- <li><a href="/editorial">EDITORIAL</a></li> -->
 						<li><a href="/contact">CONTACTO</a></li>
 					</ul>
@@ -118,7 +150,7 @@ const organizationData = {
 		<div class="mobile-nav-overlay" id="mobile-menu">
 			<nav class="mobile-nav-drawer">
 				<div class="drawer-header">
-					<img src="/img/logo_maravilla_large.png" alt="Logo Maravilla Films" class="drawer-logo" />
+					<img src="/img/logo_maravilla_large_opt.webp" alt="Logo Maravilla Films" class="drawer-logo" />
 					<button id="btn-close-menu" aria-label="Cerrar Menú">
 						<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 					</button>
@@ -126,7 +158,7 @@ const organizationData = {
 				<ul class="drawer-links">
 					<li><a href="/">INICIO</a></li>
 					<li><a href="/about">QUIÉNES SOMOS</a></li>
-					<li><a href="/#proyectos">PROYECTOS</a></li>
+					<li><a href="/catalogo">CATÁLOGO</a></li>
 					<!-- <li><a href="/editorial">EDITORIAL</a></li> -->
 					<li><a href="/contact">CONTACTO</a></li>
 				</ul>
@@ -140,17 +172,14 @@ const organizationData = {
 		<footer class="site-footer">
 			<div class="footer-content">
 				
-				<img src="/img/logo_maravilla.png" alt="Logo Maravilla Films" class="footer-logo-img">
+				<img src="/img/logo_maravilla_opt.webp" alt="Logo Maravilla Films" class="footer-logo-img">
 				
 				<div class="footer-social">
-					<a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+					<a href="https://www.instagram.com/maravillafilms/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
 					</a>
 					<a href="https://www.tiktok.com/@maravillafilms?lang=es" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-					</a>
-					<a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
 					</a>
 					<a href="https://www.linkedin.com/in/maravillafilms-56523a3b6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
@@ -162,7 +191,7 @@ const organizationData = {
 					<span class="separator">·</span>
 					<a href="/cookies">Política de Cookies</a>
 					<span class="separator">·</span>
-					<a href="/aviso-legal">Aviso Legal</a>
+					<span class="legal-pending">Aviso Legal</span>
 				</div>
 
 			</div>
@@ -580,7 +609,7 @@ const organizationData = {
 	.footer-legal {
 		margin-bottom: 3rem;
 		
-		a, .separator {
+		a, .separator, .legal-pending {
 			color: var(--site-text-subtle);
 			text-decoration: none; 
 			font-size: 0.8rem;

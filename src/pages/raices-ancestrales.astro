@@ -1,11 +1,30 @@
 ---
 // src/pages/el-ramo.astro
 import Layout from '../layouts/Layout.astro';
+
+const documentaryStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Movie',
+	name: 'Raíces Ancestrales: Los Yaquis',
+	url: 'https://maravillafilms.com/raices-ancestrales',
+	image: 'https://maravillafilms.com/img/tarjeta_raices.webp',
+	description: 'Documental sobre la identidad, la resistencia y el legado del pueblo Yaqui.',
+	genre: 'Documental',
+	director: { '@type': 'Person', name: 'Eduardo Álvarez' },
+	author: { '@type': 'Person', name: 'Eduardo Álvarez' },
+	productionCompany: { '@id': 'https://maravillafilms.com/#organization' },
+	inLanguage: 'es',
+};
 ---
 
 <Layout
 	title="Raíces Ancestrales — Documental"
 	description="Descubre Raíces Ancestrales: Los Yaquis, un documental de Maravilla Films sobre la identidad, la resistencia y el legado del pueblo Yaqui."
+	socialImage="/img/tarjeta_raices.webp"
+	socialImageAlt="Raíces Ancestrales, documental de Maravilla Films"
+	socialImageWidth={1784}
+	socialImageHeight={782}
+	structuredData={documentaryStructuredData}
 >
 	
 	<section class="movie-hero">
