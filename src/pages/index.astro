@@ -73,12 +73,12 @@ const prensa = [
 		{heroSlides.map((slide, index) => (
 			<div class={`hero-slide ${index === 0 ? 'active' : ''}`} data-index={index}>
 				
-				<video class="hero-bg-video" loop muted playsinline poster={slide.poster}>
+				<video class="hero-bg-video" muted playsinline poster={slide.poster} preload={index === 0 ? 'auto' : 'metadata'}>
 					<source src={slide.video} type="video/mp4" />
 				</video>
 				<div class="video-overlay"></div>
 				<div class="video-center-control">
-					<button class="btn-center-play" type="button" aria-label={`Reproducir tráiler de ${slide.titulo}`}>
+					<button class="btn-center-play is-hidden" type="button" aria-label={`Pausar tráiler de ${slide.titulo}`} aria-hidden="true" tabindex="-1">
 						<svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg>
 						<svg class="icon-pause hidden" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
 					</button>
@@ -94,17 +94,12 @@ const prensa = [
 						<div class="action-group">
 							<a href={slide.enlace} class="btn btn-teal">VER MÁS</a>
 							
-							<button class="btn btn-teal btn-play-trailer">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-								VER TRÁILER
-							</button>
-
-							<div class="video-controls hidden">
-								<button class="ctrl-icon btn-pause" aria-label="Pausar">
+							<div class="video-controls">
+								<button class="ctrl-icon btn-pause" type="button" aria-label={`Pausar tráiler de ${slide.titulo}`}>
 									<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
 								</button>
-								<button class="ctrl-icon btn-mute" aria-label="Silenciar">
-									<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+								<button class="ctrl-icon btn-mute" type="button" aria-label={`Activar sonido del tráiler de ${slide.titulo}`}>
+									<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
 								</button>
 							</div>
 						</div>
