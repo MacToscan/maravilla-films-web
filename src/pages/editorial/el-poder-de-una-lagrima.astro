@@ -1,0 +1,28 @@
+---
+import EditorialBookPage from '../../components/EditorialBookPage.astro';
+
+const technicalItems = [
+	{ label: 'Temática', value: 'Ciencia ficción' },
+	{ label: 'Autor', value: 'Marc Toscano Martín' },
+	{ label: 'Publicación', value: 'Por confirmar' },
+	{ label: 'Formato', value: 'Por confirmar' },
+	{ label: 'Páginas', value: 'Por confirmar' },
+	{ label: 'ISBN', value: 'Por confirmar' },
+];
+---
+
+<EditorialBookPage
+	title="El poder de una lágrima"
+	author="Marc Toscano Martín"
+	genre="Ciencia ficción"
+	cover="/img/editorial_el_poder_lagrima.webp"
+	coverAlt="Portada de El poder de una lágrima, de Marc Toscano Martín"
+	hook="Una lágrima puede cambiarlo todo."
+	paragraphs={[
+		'La humanidad vive en un equilibrio impecable. No existen las guerras, el caos ni el sufrimiento. Todo es orden. Jonathan, un científico entregado a su trabajo, jamás ha tenido motivos para dudar de esta realidad... hasta que una expedición a la Antártida lo cambia todo.',
+		'Allí, bajo la furia de una tormenta de hielo, ocurre lo impensable: un instante de vulnerabilidad y una sola lágrima. Ese pequeño accidente desata una reacción en cadena que lo arrastrará mucho más allá de la superficie. Jonathan descubrirá que, bajo la corteza terrestre, el mundo no está vacío. En las profundidades aguardan civilizaciones olvidadas y una guerra ancestral que se libra en secreto por el destino de la especie.',
+		'Guiado por la enigmática Resistencia Intra, Jonathan iniciará un descenso físico y mental en busca de respuestas. Pero la verdad tiene un precio. En un juego donde poderosas fuerzas mueven los hilos desde la oscuridad, su capacidad para sentir se convertirá en su mayor arma... y en la única esperanza de la humanidad.',
+		'Ciencia ficción y leyenda colisionan en una épica aventura sobre el despertar de la conciencia.',
+	]}
+	technicalItems={technicalItems}
+/>

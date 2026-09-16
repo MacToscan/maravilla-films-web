@@ -1,0 +1,27 @@
+---
+import EditorialBookPage from '../../components/EditorialBookPage.astro';
+
+const technicalItems = [
+	{ label: 'Temática', value: 'Thriller psicológico' },
+	{ label: 'Autor', value: 'Martín Barroso' },
+	{ label: 'Publicación', value: 'Por confirmar' },
+	{ label: 'Formato', value: 'Por confirmar' },
+	{ label: 'Páginas', value: 'Por confirmar' },
+	{ label: 'ISBN', value: 'Por confirmar' },
+];
+---
+
+<EditorialBookPage
+	title="Carne y Cal"
+	author="Martín Barroso"
+	genre="Thriller psicológico"
+	cover="/img/editorial_carne_cal.webp"
+	coverAlt="Portada de Carne y Cal, de Martín Barroso"
+	hook="Las paredes también guardan secretos."
+	paragraphs={[
+		'Julián es un joven artista atrapado en el letargo de una dolorosa ruptura con Ángela y una profunda crisis de inspiración en Madrid. Su monótona realidad da un vuelco inesperado cuando recibe una misteriosa herencia de una completa desconocida: una antiquísima casa declarada de valor histórico en Bélmez de la Moraleda, el epicentro andaluz de la leyenda de las «Caras de Bélmez».',
+		'Buscando un respiro de la capital y con la intención de restaurar la vivienda, Julián viaja al pueblo acompañado por su leal grupo de amigos de toda la vida, incluida su exnovia. Al principio, el reencuentro en la loma andaluza se siente como una luminosa tregua juvenil llena de pintura, cervezas y risas. Sin embargo, el idilio rural se rompe por completo cuando las paredes de la casa comienzan a manifestar intenciones propias.',
+		'Thriller y erotismo se mezclan en una trama psicológica donde arte, posesión y locura toman un mismo camino.',
+	]}
+	technicalItems={technicalItems}
+/>

@@ -1,0 +1,179 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface TechnicalItem {
+	label: string;
+	value: string;
+}
+
+interface Props {
+	title: string;
+	author: string;
+	genre: string;
+	cover: string;
+	coverAlt: string;
+	hook: string;
+	paragraphs: string[];
+	technicalItems: TechnicalItem[];
+}
+
+const { title, author, genre, cover, coverAlt, hook, paragraphs, technicalItems } = Astro.props;
+---
+
+<Layout
+	title={`${title} — Editorial Cumbre Serena`}
+	description={`${title}, de ${author}. ${hook}`}
+	noindex={true}
+	socialImage={cover}
+	socialImageAlt={coverAlt}
+>
+	<section class="book-hero">
+		<div class="book-container book-intro">
+			<div class="cover-area">
+				<span class="status">PRÓXIMAMENTE</span>
+				<img src={cover} alt={coverAlt} class="cover" />
+			</div>
+
+			<div class="book-copy">
+				<a href="/editorial" class="back-link">← EDITORIAL CUMBRE SERENA</a>
+				<p class="genre">{genre}</p>
+				<h1>{title}</h1>
+				<p class="author">{author}</p>
+				<p class="hook">{hook}</p>
+				<div class="synopsis">
+					{paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+				</div>
+				<button class="buy-button" type="button" disabled aria-label={`Comprar ${title}; enlace disponible próximamente`}>
+					COMPRAR
+					<span aria-hidden="true">→</span>
+				</button>
+				<p class="buy-note">Enlace de compra disponible próximamente.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="technical-section" aria-labelledby="technical-title">
+		<div class="book-container">
+			<div class="section-heading">
+				<p>DETALLES DE LA EDICIÓN</p>
+				<h2 id="technical-title">Ficha técnica</h2>
+			</div>
+
+			<dl class="technical-grid">
+				{technicalItems.map((item) => (
+					<div class="technical-item">
+						<dt>{item.label}</dt>
+						<dd class:list={{ pending: item.value === 'Por confirmar' }}>{item.value}</dd>
+					</div>
+				))}
+			</dl>
+		</div>
+	</section>
+</Layout>
+
+<style lang="scss">
+	.book-hero {
+		padding: 4rem 1.25rem 5.5rem;
+		background:
+			radial-gradient(circle at 20% 20%, rgba(16, 169, 189, 0.1), transparent 32rem),
+			var(--site-bg);
+		color: var(--site-text);
+	}
+
+	.book-container { width: 100%; max-width: 1200px; margin: 0 auto; }
+
+	.book-intro {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2.75rem;
+	}
+
+	.cover-area {
+		position: relative;
+		width: min(82vw, 340px);
+		margin: 0 auto;
+		aspect-ratio: 0.665;
+		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+	}
+
+	.cover-area::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, 0.09); pointer-events: none; }
+	.cover { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+	.status,
+	.genre,
+	.back-link,
+	.buy-button,
+	.section-heading p,
+	.technical-item dt {
+		font-family: var(--font-title);
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.status {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		padding: 0.65rem 0.9rem;
+		background: #10a9bd;
+		color: #031013;
+		font-size: 0.58rem;
+		letter-spacing: 0.14em;
+	}
+
+	.book-copy { max-width: 700px; }
+	.back-link { display: inline-block; margin-bottom: 2.5rem; color: var(--site-text-subtle); font-size: 0.62rem; letter-spacing: 0.14em; text-decoration: none; }
+	.genre { margin: 0 0 1rem; color: #10a9bd; font-size: 0.66rem; letter-spacing: 0.17em; }
+	.book-copy h1 { max-width: 760px; margin: 0; font-size: clamp(2.7rem, 12vw, 5.2rem); letter-spacing: -0.045em; line-height: 0.96; }
+	.author { margin: 1.25rem 0 0; color: #10a9bd; font-family: var(--font-title); font-size: 1.15rem; font-weight: 700; }
+	.hook { margin: 2.25rem 0 0; color: var(--site-text-strong); font-family: var(--font-title); font-size: clamp(1.2rem, 5vw, 1.55rem); font-weight: 700; line-height: 1.35; }
+	.synopsis { margin-top: 1.5rem; color: var(--site-text-muted); font-size: 1rem; line-height: 1.8; }
+	.synopsis p { margin: 0 0 1.1rem; }
+
+	.buy-button {
+		display: inline-flex;
+		margin-top: 1.2rem;
+		padding: 0.95rem 1.35rem;
+		align-items: center;
+		gap: 1rem;
+		border: 1px solid #10a9bd;
+		background: #10a9bd;
+		color: #031013;
+		font-size: 0.7rem;
+		letter-spacing: 0.14em;
+		opacity: 0.72;
+		cursor: not-allowed;
+	}
+
+	.buy-note { margin: 0.7rem 0 0; color: var(--site-text-subtle); font-size: 0.76rem; }
+
+	.technical-section { padding: 5rem 1.25rem 6rem; background: var(--site-surface-deep); color: var(--site-text); }
+	.section-heading { margin-bottom: 2.5rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--site-border); }
+	.section-heading p { margin: 0 0 0.7rem; color: #10a9bd; font-size: 0.62rem; letter-spacing: 0.18em; }
+	.section-heading h2 { margin: 0; font-size: clamp(2.2rem, 9vw, 4rem); letter-spacing: -0.035em; line-height: 1; }
+
+	.technical-grid { display: grid; margin: 0; grid-template-columns: minmax(0, 1fr); gap: 0; }
+	.technical-item { display: grid; padding: 1.2rem 0; grid-template-columns: minmax(110px, 0.75fr) minmax(0, 1.25fr); gap: 1rem; border-bottom: 1px solid var(--site-border); }
+	.technical-item dt { color: var(--site-text-strong); font-size: 0.68rem; letter-spacing: 0.1em; }
+	.technical-item dd { margin: 0; color: var(--site-text-muted); font-size: 0.95rem; }
+	.technical-item dd.pending { color: var(--site-text-subtle); font-style: italic; }
+
+	@media (min-width: 760px) {
+		.book-hero { padding: 6rem 2rem 7rem; }
+		.book-intro { grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: clamp(3.5rem, 6vw, 6rem); align-items: start; }
+		.cover-area { width: 100%; max-width: 380px; margin: 0; }
+		.book-copy { padding-top: 0.35rem; }
+		.book-copy h1 { font-size: clamp(3.5rem, 6.4vw, 5.2rem); }
+		.synopsis { font-size: 1.05rem; }
+		.technical-section { padding: 6rem 2rem 8rem; }
+		.technical-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 4rem; }
+	}
+
+	@media (min-width: 1100px) {
+		.book-intro { grid-template-columns: 400px minmax(0, 1fr); }
+		.cover-area { max-width: 400px; }
+		.technical-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3.5rem; }
+		.technical-item { grid-template-columns: minmax(105px, 0.75fr) minmax(0, 1.25fr); }
+	}
+</style>
