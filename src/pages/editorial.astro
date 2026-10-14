@@ -17,6 +17,7 @@ const libros = [
 		portada: '/img/editorial_el_poder_lagrima.webp',
 		alt: 'Portada de El poder de una lágrima, de Marc Toscano Martín',
 		ruta: '/editorial/el-poder-de-una-lagrima',
+		compra: 'https://www.amazon.es/dp/B0H24H48DB',
 	},
 	{
 		titulo: 'Carne y Cal',
@@ -32,6 +33,7 @@ const libros = [
 		portada: '/img/editorial_carne_cal.webp',
 		alt: 'Portada de Carne y Cal, de Martín Barroso',
 		ruta: '/editorial/carne-y-cal',
+		compra: 'https://www.amazon.es/dp/B0HM83WR1G',
 	},
 ];
 ---
@@ -39,7 +41,6 @@ const libros = [
 <Layout
 	title="Editorial Cumbre Serena"
 	description="Editorial Cumbre Serena, una editorial de Maravilla Films. Historias que también se leen."
-	noindex={true}
 >
 	<section class="editorial-hero" aria-labelledby="editorial-title">
 		<div class="hero-glow" aria-hidden="true"></div>
@@ -72,10 +73,15 @@ const libros = [
 				{libros.map((libro, index) => (
 					<article class="book-card">
 						<div class="cover-column">
-							<div class="book-cover-wrap">
-								<span class="cover-status">DISPONIBLE</span>
-								<img src={libro.portada} alt={libro.alt} class="book-cover" loading={index === 0 ? 'eager' : 'lazy'} />
-							</div>
+							<a class="cover-link" href={libro.ruta} aria-label={`Ver la ficha de ${libro.titulo}`}>
+								<div class="book-cover-wrap">
+									<span class="cover-status">DISPONIBLE</span>
+									<img src={libro.portada} alt={libro.alt} class="book-cover" loading={index === 0 ? 'eager' : 'lazy'} />
+								</div>
+							</a>
+							<a class="cover-buy" href={libro.compra} target="_blank" rel="noopener noreferrer" aria-label={`Comprar ${libro.titulo} en Amazon`}>
+								COMPRAR <span aria-hidden="true">↗</span>
+							</a>
 						</div>
 
 						<div class="book-info">
@@ -218,7 +224,8 @@ const libros = [
 		align-items: start;
 	}
 
-	.cover-column { position: relative; display: flex; justify-content: center; }
+	.cover-column { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+	.cover-link { display: block; width: 100%; text-decoration: none; }
 
 	.book-cover-wrap {
 		position: relative;
@@ -287,9 +294,27 @@ const libros = [
 		transition: color 0.25s ease, border-color 0.25s ease;
 	}
 
+	.cover-buy {
+		display: inline-flex;
+		margin-top: 1.2rem;
+		padding: 0.75rem 1rem;
+		align-items: center;
+		justify-content: center;
+		gap: 0.65rem;
+		border: 1px solid #10a9bd;
+		color: #10a9bd;
+		font-family: var(--font-title);
+		font-size: 0.64rem;
+		font-weight: 700;
+		letter-spacing: 0.13em;
+		text-decoration: none;
+		transition: background-color 0.25s ease, color 0.25s ease;
+	}
+
 	@media (hover: hover) {
 		.book-card:hover .book-cover-wrap { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
 		.book-action:hover { border-color: var(--site-text); color: var(--site-text); }
+		.cover-buy:hover { background: #10a9bd; color: #031013; }
 	}
 
 	@media (min-width: 700px) {

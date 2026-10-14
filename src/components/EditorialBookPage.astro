@@ -13,24 +13,24 @@ interface Props {
 	cover: string;
 	coverAlt: string;
 	hook: string;
+	purchaseUrl: string;
 	paragraphs: string[];
 	technicalItems: TechnicalItem[];
 }
 
-const { title, author, genre, cover, coverAlt, hook, paragraphs, technicalItems } = Astro.props;
+const { title, author, genre, cover, coverAlt, hook, purchaseUrl, paragraphs, technicalItems } = Astro.props;
 ---
 
 <Layout
 	title={`${title} — Editorial Cumbre Serena`}
 	description={`${title}, de ${author}. ${hook}`}
-	noindex={true}
 	socialImage={cover}
 	socialImageAlt={coverAlt}
 >
 	<section class="book-hero">
 		<div class="book-container book-intro">
 			<div class="cover-area">
-				<span class="status">PRÓXIMAMENTE</span>
+				<span class="status">DISPONIBLE</span>
 				<img src={cover} alt={coverAlt} class="cover" />
 			</div>
 
@@ -43,11 +43,10 @@ const { title, author, genre, cover, coverAlt, hook, paragraphs, technicalItems 
 				<div class="synopsis">
 					{paragraphs.map((paragraph) => <p>{paragraph}</p>)}
 				</div>
-				<button class="buy-button" type="button" disabled aria-label={`Comprar ${title}; enlace disponible próximamente`}>
+				<a class="buy-button" href={purchaseUrl} target="_blank" rel="noopener noreferrer" aria-label={`Comprar ${title} en Amazon`}>
 					COMPRAR
-					<span aria-hidden="true">→</span>
-				</button>
-				<p class="buy-note">Enlace de compra disponible próximamente.</p>
+					<span aria-hidden="true">↗</span>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -142,11 +141,13 @@ const { title, author, genre, cover, coverAlt, hook, paragraphs, technicalItems 
 		color: #031013;
 		font-size: 0.7rem;
 		letter-spacing: 0.14em;
-		opacity: 0.72;
-		cursor: not-allowed;
+		text-decoration: none;
+		transition: background-color 0.25s ease, color 0.25s ease;
 	}
 
-	.buy-note { margin: 0.7rem 0 0; color: var(--site-text-subtle); font-size: 0.76rem; }
+	@media (hover: hover) {
+		.buy-button:hover { background: transparent; color: #10a9bd; }
+	}
 
 	.technical-section { padding: 5rem 1.25rem 6rem; background: var(--site-surface-deep); color: var(--site-text); }
 	.section-heading { margin-bottom: 2.5rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--site-border); }
