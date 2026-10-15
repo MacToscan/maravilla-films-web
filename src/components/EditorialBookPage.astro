@@ -47,6 +47,9 @@ const { title, author, genre, cover, coverAlt, hook, purchaseUrl, paragraphs, te
 					COMPRAR
 					<span aria-hidden="true">↗</span>
 				</a>
+				<p class="affiliate-notice">
+					En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.
+				</p>
 			</div>
 		</div>
 	</section>
@@ -143,6 +146,14 @@ const { title, author, genre, cover, coverAlt, hook, purchaseUrl, paragraphs, te
 		letter-spacing: 0.14em;
 		text-decoration: none;
 		transition: background-color 0.25s ease, color 0.25s ease;
+	}
+
+	.affiliate-notice {
+		max-width: 520px;
+		margin: 2.85rem 0 0;
+		color: var(--site-text-subtle);
+		font-size: 0.72rem;
+		line-height: 1.55;
 	}
 
 	@media (hover: hover) {
