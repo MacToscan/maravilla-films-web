@@ -210,29 +210,12 @@ const pageStructuredData = structuredData
 				const menuLinks = document.querySelectorAll('.drawer-links a');
 
 				if (siteHeader) {
-					let scrollFrame: number | null = null;
-
 					const updateHeader = () => {
-						const progress = Math.min(Math.max(window.scrollY / 140, 0), 1);
-						const headerElement = siteHeader as HTMLElement;
-						headerElement.style.setProperty('--header-padding-top', `${32 - (23.2 * progress)}px`);
-						headerElement.style.setProperty('--header-padding-bottom', `${24 - (12.8 * progress)}px`);
-						headerElement.style.setProperty('--header-logo-margin', `${24 - (18.4 * progress)}px`);
-						headerElement.style.setProperty('--header-logo-height', `${120 - (62 * progress)}px`);
-						headerElement.style.setProperty('--header-shadow-y', `${8 * progress}px`);
-						headerElement.style.setProperty('--header-shadow-blur', `${24 * progress}px`);
-						headerElement.style.setProperty('--header-shadow-opacity', `${0.28 * progress}`);
-						scrollFrame = null;
-					};
-
-					const requestHeaderUpdate = () => {
-						if (scrollFrame === null) {
-							scrollFrame = window.requestAnimationFrame(updateHeader);
-						}
+						siteHeader.classList.toggle('is-scrolled', window.scrollY > 12);
 					};
 
 					updateHeader();
-					window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
+					window.addEventListener('scroll', updateHeader, { passive: true });
 				}
 
 				if(btnMenu && mobileMenu) {
@@ -456,44 +439,47 @@ const pageStructuredData = structuredData
 	   ========================================== */
 	@media (min-width: 1024px) {
 	body {
-		padding-top: 211px;
+		padding-top: 104px;
 	}
 
 	.site-header {
-		--header-padding-top: 32px;
-		--header-padding-bottom: 24px;
-		--header-logo-margin: 24px;
-		--header-logo-height: 120px;
-		--header-shadow-y: 0px;
-		--header-shadow-blur: 0px;
-		--header-shadow-opacity: 0;
 		position: fixed;
 		left: 0;
 		right: 0;
-		box-shadow: 0 var(--header-shadow-y) var(--header-shadow-blur) rgba(0, 0, 0, var(--header-shadow-opacity));
+		box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+
+		&.is-scrolled {
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+		}
 	}
+
+	.header-container { padding: 0 1.5rem; }
 
 	.mobile-header { display: none; }
 	
 	.desktop-header { 
 		display: flex; 
-		flex-direction: column; 
+		height: 104px;
+		flex-direction: row;
 		align-items: center; 
-		padding: var(--header-padding-top) 0 var(--header-padding-bottom);
+		justify-content: space-between;
+		gap: clamp(1.5rem, 4vw, 4rem);
+		padding: 0;
 	}
 	
 	.logo-wrapper { 
-		margin-bottom: var(--header-logo-margin);
-		width: 100%;
+		width: auto;
 		display: flex;
-		justify-content: center;
+		flex: 0 0 auto;
+		justify-content: flex-start;
 	}
 		.logo-link-large { gap: 0.8rem; }
 		
 		.desktop-header {
 			.header-logo-img-large { 
-		max-height: var(--header-logo-height); /* Controla la altura máxima en PC */
-		width: auto;
+		height: auto;
+		width: clamp(220px, 24vw, 300px);
+		max-height: 78px;
 		max-width: 100%;
 		object-fit: contain;
 		transition: transform 0.3s ease;
@@ -509,8 +495,9 @@ const pageStructuredData = structuredData
 		/* MENÚ DE NAVEGACIÓN PC */
 		.nav-wrapper { 
 			display: flex; 
-			width: 100%; 
-			justify-content: center; 
+			width: auto;
+			min-width: 0;
+			justify-content: flex-end;
 			align-items: center; 
 		}
 		
@@ -522,7 +509,7 @@ const pageStructuredData = structuredData
 		
 		.main-nav li {
 			position: relative; 
-			padding: 0 1.5rem;
+			padding: 0 clamp(0.75rem, 1.25vw, 1.25rem);
 			
 			&:not(:last-child)::after {
 				content: ''; 
@@ -537,7 +524,7 @@ const pageStructuredData = structuredData
 		}
 		
 		.main-nav a {
-			font-size: 0.9rem; 
+			font-size: clamp(0.72rem, 0.85vw, 0.86rem);
 			font-weight: 700; 
 			color: var(--site-text-muted);
 			transition: color 0.2s;
