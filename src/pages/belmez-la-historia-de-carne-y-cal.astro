@@ -1,22 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const officialDescription = 'Largometraje inspirado en la novela Carne y cal de Martín Barroso, producido por Maravilla Films y dirigido por Eduardo Álvarez.';
+const officialDescription = 'Largometraje inspirado en la novela Carne y cal de Dídac Toscano, producido por Maravilla Films y dirigido por Eduardo Álvarez.';
 
 const filmStructuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'Movie',
-	'@id': 'https://maravillafilms.com/belmez-la-historia-de-carne-y-cal#movie',
+	'@id': 'https://maravillafilms.com/belmez-la-historia-de-carne-y-cal/#movie',
 	name: 'Bélmez: La historia de Carne y cal',
-	url: 'https://maravillafilms.com/belmez-la-historia-de-carne-y-cal',
+	url: 'https://maravillafilms.com/belmez-la-historia-de-carne-y-cal/',
 	image: 'https://maravillafilms.com/img/carneycal_portada_opt.webp',
 	description: officialDescription,
 	director: { '@type': 'Person', name: 'Eduardo Álvarez' },
+	creator: ['Ignacio Malagón', 'Máximo Bonatti'].map((name) => ({ '@type': 'Person', name })),
+	actor: ['Karra Elejalde', 'Unax Ugalde', 'Sandra Escacena', 'Paula Muñoz', 'Helena Ezquerro', 'Michel Tejerina', 'Pol Forment', 'Merche Montilla', 'Julián Valcárcel', 'Alexandra Olmo', 'Héctor Naranjo', 'Nacho Guerreros'].map((name) => ({ '@type': 'Person', name })),
+	genre: 'Terror',
+	creativeWorkStatus: 'En rodaje',
 	productionCompany: { '@id': 'https://maravillafilms.com/#organization' },
 	isBasedOn: {
 		'@type': 'Book',
 		name: 'Carne y cal',
-		author: { '@type': 'Person', name: 'Martín Barroso' },
+		url: 'https://maravillafilms.com/editorial/carne-y-cal/',
+		author: { '@type': 'Person', name: 'Dídac Toscano' },
 	},
 	inLanguage: 'es',
 };
@@ -47,12 +52,12 @@ const filmStructuredData = {
 				<p class="project-format">LARGOMETRAJE</p>
 				<h1 id="project-title">BÉLMEZ</h1>
 				<p class="project-subtitle">LA HISTORIA DE CARNE Y CAL</p>
-				<p class="project-status"><span aria-hidden="true"></span> EN PREPRODUCCIÓN</p>
+				<p class="project-status"><span aria-hidden="true"></span> EN RODAJE</p>
 				<p class="project-description">
-					Largometraje inspirado en la novela <cite>Carne y cal</cite> de <strong>Martín Barroso</strong>,
+					Largometraje inspirado en la novela <cite>Carne y cal</cite> de <strong>Dídac Toscano</strong>,
 					producido por <strong>Maravilla Films</strong> y dirigido por <strong>Eduardo Álvarez</strong>.
 				</p>
-				<a class="back-link" href="/catalogo">
+				<a class="back-link" href="/catalogo/">
 					<span aria-hidden="true">←</span> VOLVER AL CATÁLOGO
 				</a>
 			</div>

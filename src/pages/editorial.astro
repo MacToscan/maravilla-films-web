@@ -16,12 +16,12 @@ const libros = [
 		],
 		portada: '/img/editorial_el_poder_lagrima.webp',
 		alt: 'Portada de El poder de una lágrima, de Marc Toscano Martín',
-		ruta: '/editorial/el-poder-de-una-lagrima',
+		ruta: '/editorial/el-poder-de-una-lagrima/',
 		compra: 'https://link.amazon/B0dhhOBzV',
 	},
 	{
 		titulo: 'Carne y Cal',
-		autor: 'Martín Barroso',
+		autor: 'Dídac Toscano',
 		genero: 'Thriller psicológico/Terror',
 		destacado: 'Las paredes también guardan secretos.',
 		sinopsis: [
@@ -31,16 +31,42 @@ const libros = [
 			{ texto: 'las paredes empiezan a manifestar intenciones propias.', negrita: true },
 		],
 		portada: '/img/editorial_carne_cal.webp',
-		alt: 'Portada de Carne y Cal, de Martín Barroso',
-		ruta: '/editorial/carne-y-cal',
-		compra: 'https://link.amazon/B00yB53sR',
+		alt: 'Portada de Carne y Cal, de Dídac Toscano',
+		ruta: '/editorial/carne-y-cal/',
+		compra: 'https://www.amazon.es/dp/B0HQFNXY4C/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1794219772&sr=1-1&th=1',
+	},
+];
+
+const editorialStructuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'CollectionPage',
+		'@id': 'https://maravillafilms.com/editorial/#page',
+		name: 'Editorial Cumbre Serena',
+		url: 'https://maravillafilms.com/editorial/',
+		description: 'Catálogo de Editorial Cumbre Serena, una editorial de Maravilla Films.',
+		isPartOf: { '@id': 'https://maravillafilms.com/#website' },
+		mainEntity: { '@id': 'https://maravillafilms.com/editorial/#books' },
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'ItemList',
+		'@id': 'https://maravillafilms.com/editorial/#books',
+		name: 'Libros de Editorial Cumbre Serena',
+		itemListElement: libros.map((libro, index) => ({
+			'@type': 'ListItem',
+			position: index + 1,
+			url: `https://maravillafilms.com${libro.ruta}`,
+			name: libro.titulo,
+		})),
 	},
 ];
 ---
 
 <Layout
 	title="Editorial Cumbre Serena"
-	description="Editorial Cumbre Serena, una editorial de Maravilla Films. Historias que también se leen."
+	description="Editorial Cumbre Serena, una editorial de Maravilla Films. Descubre El poder de una lágrima, de Marc Toscano Martín, y Carne y Cal, de Dídac Toscano."
+	structuredData={editorialStructuredData}
 >
 	<section class="editorial-hero" aria-labelledby="editorial-title">
 		<div class="hero-glow" aria-hidden="true"></div>

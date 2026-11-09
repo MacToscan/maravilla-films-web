@@ -25,7 +25,8 @@ const {
 } = Astro.props;
 const siteName = 'Maravilla Films';
 const fullTitle = titlePosition === 'before' ? `${siteName} | ${title}` : `${title} | ${siteName}`;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://maravillafilms.com');
+const canonicalPath = Astro.url.pathname === '/' ? '/' : `${Astro.url.pathname.replace(/\/+$/, '')}/`;
+const canonicalURL = new URL(canonicalPath, Astro.site ?? 'https://maravillafilms.com');
 const socialImageURL = new URL(socialImage, Astro.site ?? 'https://maravillafilms.com');
 const isHomePage = Astro.url.pathname === '/';
 const organizationData = {
@@ -74,9 +75,10 @@ const pageStructuredData = structuredData
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
-		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
 		<title>{fullTitle}</title>
 		<link rel="canonical" href={canonicalURL} />
+		<link rel="alternate" hreflang="es" href={canonicalURL} />
 		
 		<link rel="icon" type="image/png" href="/img/favicon-96.png" />
 		
@@ -96,6 +98,7 @@ const pageStructuredData = structuredData
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageURL} />
+		<meta name="twitter:image:alt" content={socialImageAlt} />
 
 		{isHomePage && <script type="application/ld+json" set:html={JSON.stringify([organizationData, websiteData])} />}
 		{pageStructuredData.map((data) => (
@@ -135,10 +138,10 @@ const pageStructuredData = structuredData
 				<nav class="main-nav">
 					<ul>
 						<li><a href="/">INICIO</a></li>
-						<li><a href="/about">QUIÉNES SOMOS</a></li>
-						<li><a href="/catalogo">CATÁLOGO</a></li>
-						<li><a href="/editorial">EDITORIAL</a></li>
-						<li><a href="/contact">CONTACTO</a></li>
+						<li><a href="/about/">QUIÉNES SOMOS</a></li>
+						<li><a href="/catalogo/">CATÁLOGO</a></li>
+						<li><a href="/editorial/">EDITORIAL</a></li>
+						<li><a href="/contact/">CONTACTO</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -157,10 +160,10 @@ const pageStructuredData = structuredData
 				</div>
 				<ul class="drawer-links">
 					<li><a href="/">INICIO</a></li>
-					<li><a href="/about">QUIÉNES SOMOS</a></li>
-					<li><a href="/catalogo">CATÁLOGO</a></li>
-					<li><a href="/editorial">EDITORIAL</a></li>
-					<li><a href="/contact">CONTACTO</a></li>
+					<li><a href="/about/">QUIÉNES SOMOS</a></li>
+					<li><a href="/catalogo/">CATÁLOGO</a></li>
+					<li><a href="/editorial/">EDITORIAL</a></li>
+					<li><a href="/contact/">CONTACTO</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -175,10 +178,10 @@ const pageStructuredData = structuredData
 				<img src="/img/logo_maravilla_opt.webp" alt="Logo Maravilla Films" class="footer-logo-img">
 				
 				<div class="footer-social">
-					<a href="https://instagram.com/carneycalfilm?vrfl=MTN5YnNuZ2J6MWxxYg%3D%3D" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+					<a href="https://www.instagram.com/maravilla.films.producciones/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
 					</a>
-					<a href="https://www.tiktok.com/@globaleventsoficial?_r=1&_t=ZN-94NR10XkTHa" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+					<a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
 						<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
 					</a>
 					<a href="https://www.linkedin.com/in/maravillafilms-56523a3b6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -187,11 +190,11 @@ const pageStructuredData = structuredData
 				</div>
 				
 				<div class="footer-legal">
-					<a href="/privacidad">Política de Privacidad</a>
+					<a href="/privacidad/">Política de Privacidad</a>
 					<span class="separator">·</span>
-					<a href="/cookies">Política de Cookies</a>
+					<a href="/cookies/">Política de Cookies</a>
 					<span class="separator">·</span>
-					<a href="/aviso-legal">Aviso Legal</a>
+					<a href="/aviso-legal/">Aviso Legal</a>
 				</div>
 
 			</div>
