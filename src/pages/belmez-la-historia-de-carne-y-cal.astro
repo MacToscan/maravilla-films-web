@@ -57,10 +57,14 @@ const filmStructuredData = {
 					Largometraje inspirado en la novela <cite>Carne y cal</cite> de <strong>Dídac Toscano</strong>,
 					producido por <strong>Maravilla Films</strong> y dirigido por <strong>Eduardo Álvarez</strong>.
 				</p>
-				<a class="back-link" href="/catalogo/">
-					<span aria-hidden="true">←</span> VOLVER AL CATÁLOGO
-				</a>
+				<a class="project-cta" href="https://belmezcarneycal.maravillafilms.com">
+					<span aria-hidden="true">VISITA LA WEB OFICIAL DE LA PELÍCULA
+					</a>
+				
 			</div>
+		
+					
+				
 		</section>
 	</main>
 </Layout>
@@ -165,23 +169,33 @@ const filmStructuredData = {
 
 	.project-description cite { font-style: italic; }
 
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.65rem;
-		margin-top: 2.2rem;
-		padding-bottom: 0.35rem;
-		border-bottom: 1px solid var(--site-border-strong);
-		font-size: 0.68rem;
-		color: var(--site-text-muted);
-		transition: color 180ms ease, border-color 180ms ease;
-	}
+	.project-cta {
+  display: inline-flex;
+  margin-top: 2rem;
+  padding: 1rem 1.4rem;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1px solid var(--site-accent);
+  background: var(--site-accent);
+  color: var(--site-text);
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
 
-	.back-link:hover,
-	.back-link:focus-visible {
-		color: var(--site-text);
-		border-color: var(--site-accent);
-	}
+@media (hover: hover) {
+  .project-cta:hover {
+    background: transparent;
+    color: var(--site-accent);
+  }
+}
+
+	
 
 	@media (min-width: 760px) {
 		.project-hero {
